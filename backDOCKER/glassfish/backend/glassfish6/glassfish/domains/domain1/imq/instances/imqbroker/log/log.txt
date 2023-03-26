@@ -1,0 +1,362 @@
+[#|2023-01-04T23:37:10.761+0700|INFO|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|[S2004]: Log output channel com.sun.messaging.jmq.util.log.SysLogHandler is disabled: no imqutil in java.library.path: D:/glassfish6/glassfish/lib;D:/JAVA_HOME17/jdk-17.0.5/bin;C:/Windows/Sun/Java/bin;C:/Windows/System32;C:/Windows;C:/app/ahgin/product/21c/dbhomeXE/bin;C:/Program Files (x86)/Embarcadero/Studio/22.0/bin;C:/Users/Public/Documents/Embarcadero/Studio/22.0/Bpl;C:/Program Files (x86)/Embarcadero/Studio/22.0/bin64;C:/Users/Public/Documents/Embarcadero/Studio/22.0/Bpl/Win64;C:/Program Files (x86)/Embarcadero/Studio/21.0/bin;C:/Users/Public/Documents/Embarcadero/Studio/21.0/Bpl;C:/Program Files (x86)/Embarcadero/Studio/21.0/bin64;C:/Users/Public/Documents/Embarcadero/Studio/21.0/Bpl/Win64;C:/Windows/System32/wbem;C:/Windows/System32/WindowsPowerShell/v1.0;C:/Windows/System32/OpenSSH;C:/Users/ahgin/Desktop/JAVA_HOME/jdk-11.0.10/bin;C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common;C:/Program Files/NVIDIA Corporation/NVIDIA NvDLISR;D:/Flutter/bin;C:/Program Files/Google/Chrome/Application;C:/Users/ahgin/AppData/Local/Android/Sdk/platform-tools;C:/Program Files/MySQL/MySQL Shell 8.0/bin;D:/glassfish6/bin|#]
+
+
+[#|2023-01-04T23:37:10.773+0700|FORCE|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|
+================================================================================
+Message Queue 6.2.0
+Oracle
+Version:  6.2.0  (Build 1-a)
+Compile:  August 11 2021
+
+Copyright (c) 2013, 2018 Oracle and/or its affiliates.  All rights reserved.
+Copyright (c) 2018, 2021 Contributors to Eclipse Foundation.
+================================================================================
+Java Runtime: 17.0.5 Oracle Corporation D:\JAVA_HOME17\jdk-17.0.5
+|#]
+
+
+[#|2023-01-04T23:37:10.808+0700|FORCE|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|   IMQ_HOME=D:\glassfish6\mq
+|#]
+
+
+[#|2023-01-04T23:37:10.809+0700|FORCE|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|IMQ_VARHOME=D:\glassfish6\glassfish\domains\domain1\imq
+|#]
+
+
+[#|2023-01-04T23:37:10.811+0700|FORCE|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|Windows 10 10.0 amd64 192.168.1.10 (16 cpu) ahgin
+|#]
+
+
+[#|2023-01-04T23:37:10.813+0700|FORCE|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|Java Heap Size: max=524288k, current=194560k
+|#]
+
+
+[#|2023-01-04T23:37:10.813+0700|FORCE|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|Arguments: -port 7676 -name imqbroker -nobind -imqhome D:\glassfish6\mq -varhome D:\glassfish6\glassfish\domains\domain1\imq -libhome D:\glassfish6\mq\lib -useRmiRegistry -rmiRegistryPort 8686 -save -silent
+|#]
+
+
+[#|2023-01-04T23:37:10.813+0700|FORCE|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|JMSRA BrokerProps: imq.service.activate=jmsdirect, imq.cluster.dynamicChangeMasterBrokerEnabled=true, imq.imqcmd.password=*****, imq.cluster.nowaitForMasterBroker=true, imq.jmsra.managed=true
+|#]
+
+
+[#|2023-01-04T23:37:10.814+0700|FORCE|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|Broker Properties: imq.service.activate=jmsdirect, imq.cluster.nowaitForMasterBroker=true, imq.jmx.rmiregistry.use=true, imq.portmapper.port=7676, imq.jmsra.managed=true, imq.instancename=imqbroker, java.util.logging.ConsoleHandler.level=OFF, imq.imqcmd.password=*****, imq.jmx.rmiregistry.port=8686, imq.service.runtimeAdd=mqdirect2, imq.cluster.dynamicChangeMasterBrokerEnabled=true, imq.portmapper.bind=false, imq.jmx.rmiregistry.start=false
+|#]
+
+
+[#|2023-01-04T23:37:10.814+0700|FORCE|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|Embedded Broker 
+|#]
+
+
+[#|2023-01-04T23:37:10.845+0700|INFO|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|[B1522]: Create thread pool portmapper for (16, 16)(60s) service
+|#]
+
+
+[#|2023-01-04T23:37:10.881+0700|INFO|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|imq.persist.minimizeWrites=true
+|#]
+
+
+[#|2023-01-04T23:37:10.881+0700|INFO|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|imq.persist.file.minimizeWrites=false
+|#]
+
+
+[#|2023-01-04T23:37:10.889+0700|FORCE|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|[B1060]: Loading persistent data...
+|#]
+
+
+[#|2023-01-04T23:37:10.889+0700|FORCE|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|Using built-in file-based persistent store: D:\glassfish6\glassfish\domains\domain1\imq\instances\imqbroker\
+|#]
+
+
+[#|2023-01-04T23:37:11.106+0700|WARNING|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|WARNING Existing file: incompleteTxnStorehas older cookie version than current version. Current version = 1. Original file version = 0
+|#]
+
+
+[#|2023-01-04T23:37:11.168+0700|INFO|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|[B2219]: Broker property setting imq.persist.minimizeWritesLevel2=true will be ignored
+|#]
+
+
+[#|2023-01-04T23:37:11.179+0700|INFO|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|[B1041]: Cluster initialization successful.
+|#]
+
+
+[#|2023-01-04T23:37:11.235+0700|INFO|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|[B1013]: Auto Creation of Queues is enabled
+|#]
+
+
+[#|2023-01-04T23:37:11.282+0700|INFO|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|new transaction log enabled
+|#]
+
+
+[#|2023-01-04T23:37:11.282+0700|INFO|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|sync writes to disk = false
+|#]
+
+
+[#|2023-01-04T23:37:11.282+0700|INFO|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|logNonTransactedMsgSend = false
+|#]
+
+
+[#|2023-01-04T23:37:11.282+0700|INFO|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|logNonTransactedMsgAck = false
+|#]
+
+
+[#|2023-01-04T23:37:11.283+0700|INFO|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|[B1392]: Opening transaction log with file mode rw, maximum size 10 485 760 bytes
+|#]
+
+
+[#|2023-01-04T23:37:11.438+0700|INFO|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|[B1136]: Processing stored transactions
+|#]
+
+
+[#|2023-01-04T23:37:11.460+0700|INFO|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|[B1390]: Loading of transactions has been successfully completed
+|#]
+
+
+[#|2023-01-04T23:37:11.460+0700|INFO|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|[B1434]: Retrieving stored destinations
+|#]
+
+
+[#|2023-01-04T23:37:11.461+0700|INFO|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|[B1503]: Retrieved 0 destinations from store
+|#]
+
+
+[#|2023-01-04T23:37:11.461+0700|INFO|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|[B1144]: Creating Dead Message Queue
+|#]
+
+
+[#|2023-01-04T23:37:11.471+0700|INFO|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|[B1158]: Administrator has created destination mq.sys.dmq [Queue]
+|#]
+
+
+[#|2023-01-04T23:37:11.523+0700|INFO|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|[B1239]: Using platform MBean server
+|#]
+
+
+[#|2023-01-04T23:37:11.546+0700|INFO|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|[B1234]: JMX Connector Server jmxrmi started successfully with url service:jmx:rmi://DESKTOP-GGDF3BD/jndi/rmi://192.168.1.10:8686/192.168.1.10/7676/jmxrmi
+|#]
+
+
+[#|2023-01-04T23:37:11.587+0700|INFO|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|[B1004]: Starting the admin service using tcp(host = *, port=0, mode=dedicated) with min threads 4 and max threads of 10 
+|#]
+
+
+[#|2023-01-04T23:37:11.587+0700|INFO|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|[B1227]: Using file user repository for admin service connection authentication
+|#]
+
+
+[#|2023-01-04T23:37:11.594+0700|INFO|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|[B1004]: Starting the jms service using tcp(host = *, port=0, mode=dedicated) with min threads 10 and max threads of 1000 
+|#]
+
+
+[#|2023-01-04T23:37:11.594+0700|INFO|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|[B1227]: Using file user repository for jms service connection authentication
+|#]
+
+
+[#|2023-01-04T23:37:11.596+0700|INFO|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|[B1004]: Starting the mqdirect2 service using in-process connections with min threads 0 and max threads of 0 
+|#]
+
+
+[#|2023-01-04T23:37:11.596+0700|INFO|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|[B1227]: Using file user repository for mqdirect2 service connection authentication
+|#]
+
+
+[#|2023-01-04T23:37:11.598+0700|INFO|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|[B1004]: Starting the jmsdirect service using  with min threads 0 and max threads of 0 
+|#]
+
+
+[#|2023-01-04T23:37:11.598+0700|INFO|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|[B1227]: Using file user repository for jmsdirect service connection authentication
+|#]
+
+
+[#|2023-01-04T23:37:11.603+0700|INFO|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|[B1004]: Starting the cluster service using tcp [ 0.0.0.0/0.0.0.0:52447 ] with min threads 1 and max threads of 1 
+|#]
+
+
+[#|2023-01-04T23:37:11.603+0700|INFO|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|[B1228]: Cluster ping interval is 60 seconds
+|#]
+
+
+[#|2023-01-04T23:37:11.606+0700|FORCE|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|[B1039]: Broker "imqbroker@192.168.1.10:7676" ready.
+|#]
+
+
+[#|2023-01-13T20:30:28.306+0700|INFO|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|[S2004]: Log output channel com.sun.messaging.jmq.util.log.SysLogHandler is disabled: no imqutil in java.library.path: D:/glassfish6/glassfish/lib;D:/JAVA_HOME17/jdk-17.0.5/bin;C:/Windows/Sun/Java/bin;C:/Windows/System32;C:/Windows;C:/app/ahgin/product/21c/dbhomeXE/bin;C:/Program Files (x86)/Embarcadero/Studio/22.0/bin;C:/Users/Public/Documents/Embarcadero/Studio/22.0/Bpl;C:/Program Files (x86)/Embarcadero/Studio/22.0/bin64;C:/Users/Public/Documents/Embarcadero/Studio/22.0/Bpl/Win64;C:/Program Files (x86)/Embarcadero/Studio/21.0/bin;C:/Users/Public/Documents/Embarcadero/Studio/21.0/Bpl;C:/Program Files (x86)/Embarcadero/Studio/21.0/bin64;C:/Users/Public/Documents/Embarcadero/Studio/21.0/Bpl/Win64;C:/Windows/System32/wbem;C:/Windows/System32/WindowsPowerShell/v1.0;C:/Windows/System32/OpenSSH;C:/Users/ahgin/Desktop/JAVA_HOME/jdk-11.0.10/bin;C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common;C:/Program Files/NVIDIA Corporation/NVIDIA NvDLISR;D:/Flutter/bin;C:/Program Files/Google/Chrome/Application;C:/Users/ahgin/AppData/Local/Android/Sdk/platform-tools;C:/Program Files/MySQL/MySQL Shell 8.0/bin;D:/glassfish6/bin|#]
+
+
+[#|2023-01-13T20:30:28.335+0700|FORCE|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|
+================================================================================
+Message Queue 6.2.0
+Oracle
+Version:  6.2.0  (Build 1-a)
+Compile:  August 11 2021
+
+Copyright (c) 2013, 2018 Oracle and/or its affiliates.  All rights reserved.
+Copyright (c) 2018, 2021 Contributors to Eclipse Foundation.
+================================================================================
+Java Runtime: 17.0.5 Oracle Corporation D:\JAVA_HOME17\jdk-17.0.5
+|#]
+
+
+[#|2023-01-13T20:30:28.370+0700|FORCE|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|   IMQ_HOME=D:\glassfish6\mq
+|#]
+
+
+[#|2023-01-13T20:30:28.370+0700|FORCE|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|IMQ_VARHOME=D:\glassfish6\glassfish\domains\domain1\imq
+|#]
+
+
+[#|2023-01-13T20:30:28.372+0700|FORCE|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|Windows 10 10.0 amd64 192.168.1.10 (16 cpu) ahgin
+|#]
+
+
+[#|2023-01-13T20:30:28.373+0700|FORCE|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|Java Heap Size: max=524288k, current=188416k
+|#]
+
+
+[#|2023-01-13T20:30:28.374+0700|FORCE|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|Arguments: -port 7676 -name imqbroker -nobind -imqhome D:\glassfish6\mq -varhome D:\glassfish6\glassfish\domains\domain1\imq -libhome D:\glassfish6\mq\lib -useRmiRegistry -rmiRegistryPort 8686 -save -silent
+|#]
+
+
+[#|2023-01-13T20:30:28.374+0700|FORCE|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|JMSRA BrokerProps: imq.service.activate=jmsdirect, imq.cluster.dynamicChangeMasterBrokerEnabled=true, imq.imqcmd.password=*****, imq.cluster.nowaitForMasterBroker=true, imq.jmsra.managed=true
+|#]
+
+
+[#|2023-01-13T20:30:28.374+0700|FORCE|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|Broker Properties: imq.service.activate=jmsdirect, imq.cluster.nowaitForMasterBroker=true, imq.jmx.rmiregistry.use=true, imq.portmapper.port=7676, imq.jmsra.managed=true, imq.instancename=imqbroker, java.util.logging.ConsoleHandler.level=OFF, imq.imqcmd.password=*****, imq.jmx.rmiregistry.port=8686, imq.service.runtimeAdd=mqdirect2, imq.cluster.dynamicChangeMasterBrokerEnabled=true, imq.portmapper.bind=false, imq.jmx.rmiregistry.start=false
+|#]
+
+
+[#|2023-01-13T20:30:28.374+0700|FORCE|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|Embedded Broker 
+|#]
+
+
+[#|2023-01-13T20:30:28.383+0700|INFO|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|[B1522]: Create thread pool portmapper for (16, 16)(60s) service
+|#]
+
+
+[#|2023-01-13T20:30:28.390+0700|INFO|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|imq.persist.minimizeWrites=true
+|#]
+
+
+[#|2023-01-13T20:30:28.390+0700|INFO|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|imq.persist.file.minimizeWrites=false
+|#]
+
+
+[#|2023-01-13T20:30:28.396+0700|FORCE|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|[B1060]: Loading persistent data...
+|#]
+
+
+[#|2023-01-13T20:30:28.396+0700|FORCE|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|Using built-in file-based persistent store: D:\glassfish6\glassfish\domains\domain1\imq\instances\imqbroker\
+|#]
+
+
+[#|2023-01-13T20:30:28.597+0700|INFO|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|[B2219]: Broker property setting imq.persist.minimizeWritesLevel2=true will be ignored
+|#]
+
+
+[#|2023-01-13T20:30:28.606+0700|INFO|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|[B1041]: Cluster initialization successful.
+|#]
+
+
+[#|2023-01-13T20:30:28.674+0700|INFO|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|[B1013]: Auto Creation of Queues is enabled
+|#]
+
+
+[#|2023-01-13T20:30:28.718+0700|INFO|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|new transaction log enabled
+|#]
+
+
+[#|2023-01-13T20:30:28.718+0700|INFO|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|sync writes to disk = false
+|#]
+
+
+[#|2023-01-13T20:30:28.719+0700|INFO|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|logNonTransactedMsgSend = false
+|#]
+
+
+[#|2023-01-13T20:30:28.719+0700|INFO|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|logNonTransactedMsgAck = false
+|#]
+
+
+[#|2023-01-13T20:30:28.719+0700|INFO|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|[B1392]: Opening transaction log with file mode rw, maximum size 10 485 760 bytes
+|#]
+
+
+[#|2023-01-13T20:30:28.772+0700|FORCE|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|[B1270]: Processing messages from transaction log file...
+|#]
+
+
+[#|2023-01-13T20:30:28.772+0700|INFO|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|[B1434]: Retrieving stored destinations
+|#]
+
+
+[#|2023-01-13T20:30:28.772+0700|INFO|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|[B1503]: Retrieved 1 destinations from store
+|#]
+
+
+[#|2023-01-13T20:30:28.773+0700|INFO|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|[B1151]: Loading destination mq.sys.dmq [Queue] with 0 messages
+|#]
+
+
+[#|2023-01-13T20:30:28.773+0700|INFO|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|[B1152]: Loading of destination mq.sys.dmq [Queue] complete
+|#]
+
+
+[#|2023-01-13T20:30:28.952+0700|INFO|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|[B1136]: Processing stored transactions
+|#]
+
+
+[#|2023-01-13T20:30:28.953+0700|INFO|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|[B1390]: Loading of transactions has been successfully completed
+|#]
+
+
+[#|2023-01-13T20:30:28.996+0700|INFO|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|[B1239]: Using platform MBean server
+|#]
+
+
+[#|2023-01-13T20:30:29.012+0700|INFO|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|[B1234]: JMX Connector Server jmxrmi started successfully with url service:jmx:rmi://DESKTOP-GGDF3BD/jndi/rmi://192.168.1.10:8686/192.168.1.10/7676/jmxrmi
+|#]
+
+
+[#|2023-01-13T20:30:29.049+0700|INFO|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|[B1004]: Starting the admin service using tcp(host = *, port=0, mode=dedicated) with min threads 4 and max threads of 10 
+|#]
+
+
+[#|2023-01-13T20:30:29.049+0700|INFO|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|[B1227]: Using file user repository for admin service connection authentication
+|#]
+
+
+[#|2023-01-13T20:30:29.054+0700|INFO|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|[B1004]: Starting the jms service using tcp(host = *, port=0, mode=dedicated) with min threads 10 and max threads of 1000 
+|#]
+
+
+[#|2023-01-13T20:30:29.054+0700|INFO|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|[B1227]: Using file user repository for jms service connection authentication
+|#]
+
+
+[#|2023-01-13T20:30:29.056+0700|INFO|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|[B1004]: Starting the mqdirect2 service using in-process connections with min threads 0 and max threads of 0 
+|#]
+
+
+[#|2023-01-13T20:30:29.056+0700|INFO|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|[B1227]: Using file user repository for mqdirect2 service connection authentication
+|#]
+
+
+[#|2023-01-13T20:30:29.057+0700|INFO|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|[B1004]: Starting the jmsdirect service using  with min threads 0 and max threads of 0 
+|#]
+
+
+[#|2023-01-13T20:30:29.057+0700|INFO|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|[B1227]: Using file user repository for jmsdirect service connection authentication
+|#]
+
+
+[#|2023-01-13T20:30:29.061+0700|INFO|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|[B1004]: Starting the cluster service using tcp [ 0.0.0.0/0.0.0.0:52526 ] with min threads 1 and max threads of 1 
+|#]
+
+
+[#|2023-01-13T20:30:29.061+0700|INFO|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|[B1228]: Cluster ping interval is 60 seconds
+|#]
+
+
+[#|2023-01-13T20:30:29.063+0700|FORCE|6.2.0|imq.log.Logger|_ThreadID=189;_ThreadName=JMS_PROXY_default_JMS_host-kernel(1) SelectorRunner;|[B1039]: Broker "imqbroker@192.168.1.10:7676" ready.
+|#]
+
+

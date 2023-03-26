@@ -1,0 +1,23 @@
+version: '3.1'
+
+services:
+    mysqlserver:
+        # build: ./glassfish/mysql
+        image: mysql:latest
+        restart: always
+        ports:
+            -   3306:3306
+        # environment:
+            # -   MYSQL_ROOT_PASSWORD=3572
+        volumes:
+            -   ./glassfish/mysql/scripts/1_users.sql:/docker-entrypoint-initdb.d/1_users.sql
+            -   ./glassfish/mysql/scripts/2_patients.sql:/docker-entrypoint-initdb.d/2_patients.sql
+        env_file:
+            -   ./config/mysql.env
+    glassfish:
+        build: ./glassfish
+        restart: always
+        links:
+            -   mysqlserver:db
+        ports:
+            -   8080:8080
