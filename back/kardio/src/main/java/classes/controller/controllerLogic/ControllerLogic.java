@@ -17,7 +17,7 @@ public class ControllerLogic {
         return gson.toJson(entity);
     }
 
-    public EUser getUserData(String userDataJSON){
+    public EUser userFromJson(String userDataJSON){
         EUser euser = new EUser();
 
         try {
@@ -36,19 +36,18 @@ public class ControllerLogic {
         EUser euser = new EUser(); // TODO DELETE DEPENDENCE
         JsonWebToken jwt = new JsonWebToken(); // TODO DELETE DEPENDENCE
 
-        euser.login = jwt.getClaimFromToken(token, "login");
-        euser.password = jwt.getClaimFromToken(token, "password");
+        euser.id = Integer.parseInt(jwt.getClaimFromToken(token, "id"));
         euser.role = jwt.getClaimFromToken(token, "role");
 
         return euser;
     }
-    public String getUserToken(String login, String password, String role) throws Exception {
+    public String getUserToken(int userId, String role) throws Exception {
         EToken etoken = new EToken(); // TODO DELETE DEPENDENCE
         JsonWebToken jwt = new JsonWebToken(); // TODO DELETE DEPENDENCE
 
         try {
-            etoken.accessToken = jwt.generateToken(login, password, "accessToken", role);
-            etoken.refreshToken = jwt.generateToken(login, password, "refreshToken", role);
+            etoken.accessToken = jwt.generateToken(userId, "accessToken", role);
+            etoken.refreshToken = jwt.generateToken(userId, "refreshToken", role);
         }
         catch(Exception ex){
             System.out.printf("ERROR in %s.%s: %s%n",

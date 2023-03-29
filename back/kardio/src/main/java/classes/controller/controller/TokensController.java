@@ -20,7 +20,7 @@ public class TokensController {
         if(refreshTokenIsOk) {
             euser = controllerLogic.getUserDataWithToken(refreshToken);
             try {
-                token = controllerLogic.getUserToken(euser.login, euser.password, euser.role);
+                token = controllerLogic.getUserToken(euser.id, euser.role);
             }
             catch (Exception ex){
                 System.out.printf("ERROR in %s.%s: %s%n",

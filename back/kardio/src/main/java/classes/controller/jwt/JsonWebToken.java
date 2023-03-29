@@ -17,17 +17,15 @@ public class JsonWebToken implements IJsonWebToken {
         algorithm = Algorithm.HMAC256(secretWord);
     }
 
-    public String generateToken(String login, String password, String issuer, String role) throws Exception{
+    public String generateToken(int userId, String tokenType, String role) throws Exception{
         String token = null;
         long expireTime = (new Date().getTime()) + 86400000;
         Date expireDate = new Date(expireTime);
 
         try {
-
             token = JWT.create()
-                    .withIssuer(issuer)
-                    .withClaim("login", login)
-                    .withClaim("password", password)
+                    .withIssuer(tokenType)
+                    .withClaim("id", userId)
                     .withClaim("role", role)
                     .withExpiresAt(expireDate)
                     .sign(algorithm);
@@ -37,24 +35,29 @@ public class JsonWebToken implements IJsonWebToken {
             }
 
         } catch (Exception ex) {
-            System.out.println("ERROR in JsonWebToken.generateToken: " + ex);
+            System.out.printf("ERROR in %s.%s: %s%n",
+                    this.getClass(),
+                    new Throwable().getStackTrace()[0].getMethodName(),
+                    ex.getMessage());
             throw new Exception();
         }
 
         return token;
     }
-    public boolean checkToken(String token, String issuer){
+    public boolean checkToken(String token, String tokenType){
         try {
             JWTVerifier verifier = JWT.require(algorithm)
-                    .withIssuer(issuer)
+                    .withIssuer(tokenType)
                     .build();
-
 
             DecodedJWT decodedJWT = verifier.verify(token);
             return true;
 
         } catch (Exception ex) {
-            System.out.println("ERROR in " + this.getClass().getSimpleName() + ".checkToken: " + ex);
+            System.out.printf("ERROR in %s.%s: %s%n",
+                    this.getClass(),
+                    new Throwable().getStackTrace()[0].getMethodName(),
+                    ex.getMessage());
             return false;
         }
     }

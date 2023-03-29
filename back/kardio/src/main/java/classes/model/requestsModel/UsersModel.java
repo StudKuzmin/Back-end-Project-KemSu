@@ -13,7 +13,7 @@ public class UsersModel {
     @Inject
     Model model;
 
-    public boolean userLoginPost(EUser euser){
+    public Integer userLoginPost(EUser euser){
         String entity = "users";
         try {
             List<Object> objectList = dbservice.select(entity);
@@ -22,16 +22,16 @@ public class UsersModel {
 
             for (EUser e : userList) {
                 if (euser.login.equals(e.login) && euser.password.equals(e.password))
-                    return true;
+                    return e.id;
             }
-            return false;
+            return null;
         }
         catch(Exception ex){
             System.out.printf("ERROR in %s.%s: %s%n",
                     this.getClass(),
                     new Throwable().getStackTrace()[0].getMethodName(),
                     ex.getMessage());
-            return false;
+            return null;
         }
     }
     public List<EUser> getUserList() throws Exception{

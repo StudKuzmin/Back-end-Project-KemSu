@@ -10,21 +10,16 @@ import java.util.List;
 
 public class UsersController {
     @Inject
-    UsersModel userModel;
+    UsersModel usersModel;
     @Inject
     ControllerLogic controllerLogic;
 
     public String userLoginPost(String userDataJSON) throws Exception{
-        boolean userDataIsOk;
-        String token;
-        EUser euser;
-
         try {
-            euser = controllerLogic.getUserData(userDataJSON);
-            userDataIsOk = userModel.userLoginPost(euser);
-            if (userDataIsOk) {
-                token = controllerLogic.getUserToken(euser.login, euser.password, "user");
-                return token;
+            EUser euser = controllerLogic.userFromJson(userDataJSON);
+            Integer userId = usersModel.userLoginPost(euser);
+            if (userId != null) {
+                return controllerLogic.getUserToken(userId,"user");
             }
             else throw new Exception("BAD USER DATA");
         }
@@ -43,7 +38,7 @@ public class UsersController {
         try {
             accessTokenIsOk = controllerLogic.checkUserToken(accessToken, "accessToken");
             if (accessTokenIsOk) {
-                userList = userModel.getUserList();
+                userList = usersModel.getUserList();
                 return userList;
             }
             else throw new Exception("BAD TOKEN");
@@ -64,8 +59,8 @@ public class UsersController {
         if(accessTokenIsOk){
             boolean userCreated = false;
             try {
-                euser = controllerLogic.getUserData(userDataJSON);
-                userCreated = userModel.createUser(euser);
+                euser = controllerLogic.userFromJson(userDataJSON);
+                userCreated = usersModel.createUser(euser);
                 if(userCreated)
                     return euser;
                 throw new Exception("user creation error");
@@ -87,7 +82,7 @@ public class UsersController {
         accessTokenIsOk = controllerLogic.checkUserToken(accessToken, "accessToken");
         if(accessTokenIsOk){
             try {
-                euser = userModel.getOneUser(userId);
+                euser = usersModel.getOneUser(userId);
                 return euser;
             }
             catch(Exception ex){
@@ -106,7 +101,7 @@ public class UsersController {
         accessTokenIsOk = controllerLogic.checkUserToken(accessToken, "accessToken");
         if(accessTokenIsOk){
             try {
-                return userModel.deleteOneUser(userId);
+                return usersModel.deleteOneUser(userId);
             }
             catch(Exception ex){
                 System.out.printf("ERROR in %s.%s: %s%n",
@@ -124,8 +119,8 @@ public class UsersController {
         accessTokenIsOk = controllerLogic.checkUserToken(accessToken, "accessToken");
         if(accessTokenIsOk){
             try {
-                EUser newDataUser = controllerLogic.getUserData(userDataJSON);
-                return userModel.updateOneUser(userId, newDataUser);
+                EUser newDataUser = controllerLogic.userFromJson(userDataJSON);
+                return usersModel.updateOneUser(userId, newDataUser);
             }
             catch(Exception ex){
                 System.out.printf("ERROR in %s.%s: %s%n",
