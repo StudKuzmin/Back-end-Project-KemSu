@@ -1,7 +1,8 @@
 package classes.controller.requests;
 
-import classes.controller.controller.UsersController;
+import classes.controller.controller.interfaces.IUsersController;
 import classes.database.entity.EError;
+import classes.database.entity.EPassword;
 import classes.database.entity.EUser;
 
 import jakarta.inject.Inject;
@@ -13,7 +14,7 @@ import java.util.List;
 @Path("/users")
 public class UsersRequests {
     @Inject
-    UsersController usersController;
+    IUsersController usersController;
 
     @GET
     @Path("/")
@@ -22,6 +23,7 @@ public class UsersRequests {
     public Response getUsers(@HeaderParam("accessToken") String accessToken) {
         try {
             List<EUser> userList = usersController.getUserList(accessToken);
+
             return Response
                     .ok(userList)
                     .status(200)
@@ -45,9 +47,9 @@ public class UsersRequests {
     @Path("/login")
     @Consumes("application/json")
     @Produces("application/json")
-    public Response loginPost(String userDataJSON) {
+    public Response postLogin(String userDataJSON) {
         try {
-            String token = usersController.userLoginPost(userDataJSON);
+            String token = usersController.postUserLogin(userDataJSON);
             return Response
                     .ok(token)
                     .status(200)
@@ -55,9 +57,11 @@ public class UsersRequests {
 
         }
         catch (Exception ex) {
-            System.out.println("ERROR in UserController.loginPost: " + ex.getMessage());
+            System.out.printf("ERROR in %s.%s: %s%n",
+                    this.getClass(),
+                    new Throwable().getStackTrace()[0].getMethodName(),
+                    ex.getMessage());
         }
-
         return Response
                 .ok(new EError("unauthorized"))
                 .status(401)
@@ -70,7 +74,6 @@ public class UsersRequests {
     @Produces("application/json")
     public Response postUsers(@HeaderParam("accessToken") String accessToken, String userDataJSON) {
         try {
-
             EUser euser = usersController.createUser(accessToken, userDataJSON);
             return Response
                     .ok(euser)
@@ -79,7 +82,10 @@ public class UsersRequests {
 
         }
         catch (Exception ex) {
-            System.out.println("ERROR in UsersController.postUsers: " + ex);
+            System.out.printf("ERROR in %s.%s: %s%n",
+                    this.getClass(),
+                    new Throwable().getStackTrace()[0].getMethodName(),
+                    ex.getMessage());
         }
 
         return Response
@@ -103,7 +109,10 @@ public class UsersRequests {
 
         }
         catch (Exception ex) {
-            System.out.println("ERROR in UsersController.getOneUser: " + ex);
+            System.out.printf("ERROR in %s.%s: %s%n",
+                    this.getClass(),
+                    new Throwable().getStackTrace()[0].getMethodName(),
+                    ex.getMessage());
         }
 
         return Response
@@ -127,7 +136,10 @@ public class UsersRequests {
 
         }
         catch (Exception ex) {
-            System.out.println("ERROR in UsersController.deleteOneUser: " + ex);
+            System.out.printf("ERROR in %s.%s: %s%n",
+                    this.getClass(),
+                    new Throwable().getStackTrace()[0].getMethodName(),
+                    ex.getMessage());
         }
 
         return Response
@@ -150,7 +162,36 @@ public class UsersRequests {
 
         }
         catch (Exception ex) {
-            System.out.println("ERROR in UsersController.updateOneUser: " + ex);
+            System.out.printf("ERROR in %s.%s: %s%n",
+                    this.getClass(),
+                    new Throwable().getStackTrace()[0].getMethodName(),
+                    ex.getMessage());
+        }
+
+        return Response
+                .ok(new EError("authorization failed"))
+                .status(401)
+                .build();
+    }
+
+    @POST
+    @Path("/{id}/reset-password")
+    @Consumes("application/json")
+    @Produces("application/json")
+    public Response postResetPassword(@HeaderParam("accessToken") String accessToken, @PathParam("id") String userId, String newPassword) {
+        try {
+            EPassword epassword = usersController.resetPassword(accessToken, userId, newPassword);
+            return Response
+                    .ok(epassword)
+                    .status(200)
+                    .build();
+
+        }
+        catch (Exception ex) {
+            System.out.printf("ERROR in %s.%s: %s%n",
+                    this.getClass(),
+                    new Throwable().getStackTrace()[0].getMethodName(),
+                    ex.getMessage());
         }
 
         return Response

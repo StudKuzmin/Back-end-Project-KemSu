@@ -96,7 +96,7 @@ public class EPatient {
     public EPatient(){}
     public EPatient(int id,
                     String dateOfAdmission,
-                    boolean sex,
+                    String sex,
                     String age,
                     String urea,
                     String creatinine,
@@ -108,75 +108,75 @@ public class EPatient {
                     String neutrophils,
                     String lymphocytes,
                     String DminusDimer,
-                    boolean AG,
-                    boolean SD,
-                    boolean IBS,
-                    boolean HOBL,
-                    boolean HBP,
+                    String AG,
+                    String SD,
+                    String IBS,
+                    String HOBL,
+                    String HBP,
                     String CRP,
                     String SKF,
                     String neutrophilMinusLymphocyteRatio,
-                    boolean cabsType,
+                    String cabsType,
                     String BMI,
-                    boolean overweight,
-                    boolean smoking,
-                    boolean heredity,
-                    boolean dyslipidemia,
-                    boolean HOBLminusBA,
-                    boolean PIKS,
-                    boolean FP,
-                    boolean SU,
-                    boolean TH,
-                    boolean varicose,
-                    boolean cardiacLesions,
-                    boolean LLALesions,
-                    boolean FCAnginaPectoris,
-                    boolean FCCHF,
+                    String overweight,
+                    String smoking,
+                    String heredity,
+                    String dyslipidemia,
+                    String HOBLminusBA,
+                    String PIKS,
+                    String FP,
+                    String SU,
+                    String TH,
+                    String varicose,
+                    String cardiacLesions,
+                    String LLALesions,
+                    String FCAnginaPectoris,
+                    String FCCHF,
                     String LVEF,
                     String ISs,
                     String EuroScore2,
-                    boolean IK,
+                    String IK,
                     String IKTime,
                     String aorticClampTime,
                     String TminusBodies,
-                    boolean numberOfCardioplegias,
-                    boolean VPminusLZ,
-                    boolean revascularizationIndex,
-                    boolean YminusTypeCOBS,
-                    boolean LIMAExcretion,
+                    String numberOfCardioplegias,
+                    String VPminusLZ,
+                    String revascularizationIndex,
+                    String YminusTypeCOBS,
+                    String LIMAExcretion,
                     String RIMAExcretion,
-                    boolean LAUsage,
-                    boolean AVUsage,
+                    String LAUsage,
+                    String AVUsage,
                     String bloodLoss,
                     String ALVTime,
-                    boolean inotropicSupport,
-                    boolean pneumonia,
-                    boolean SN,
-                    boolean FPminusTP,
-                    boolean pleuralEffusion,
-                    boolean hydropericardium,
-                    boolean pneumothorax,
-                    boolean sternalComplications,
-                    boolean AKK,
-                    boolean iAPF,
-                    boolean spironolactone,
-                    boolean diuretics,
-                    boolean cordaron,
+                    String inotropicSupport,
+                    String pneumonia,
+                    String SN,
+                    String FPminusTP,
+                    String pleuralEffusion,
+                    String hydropericardium,
+                    String pneumothorax,
+                    String sternalComplications,
+                    String AKK,
+                    String iAPF,
+                    String spironolactone,
+                    String diuretics,
+                    String cordaron,
                     String hospitalizationDuration,
-                    boolean CEAfteer,
-                    boolean ANCOperationsAfter,
-                    boolean antiplateletAgentsAfter,
-                    boolean anticoagulants,
-                    boolean BABAfter,
-                    boolean AKKAfter,
-                    boolean iAPFAfter,
-                    boolean ARAAfter,
-                    boolean diureticsAfter,
-                    boolean statins,
-                    boolean heartAttack,
-                    boolean PCI,
-                    boolean insult,
-                    boolean death){
+                    String CEAfteer,
+                    String ANCOperationsAfter,
+                    String antiplateletAgentsAfter,
+                    String anticoagulants,
+                    String BABAfter,
+                    String AKKAfter,
+                    String iAPFAfter,
+                    String ARAAfter,
+                    String diureticsAfter,
+                    String statins,
+                    String heartAttack,
+                    String PCI,
+                    String insult,
+                    String death){
         this.id = id;
         this.dateOfAdmission = dateOfAdmission;
         this.sex = sex;
@@ -262,13 +262,99 @@ public class EPatient {
         this.death = death;
     }
 
+    public void clone(EPatient ePatient){
+        ePatient.id = this.id;
+        ePatient.dateOfAdmission = this.dateOfAdmission;
+        ePatient.sex = this.sex;
+        ePatient.age = this.age;
+        ePatient.urea = this.urea;
+        ePatient.creatinine = this.creatinine;
+        ePatient.AST = this.AST;
+        ePatient.ALT = this.ALT;
+        ePatient.glucose = this.glucose;
+        ePatient.leukocytes = this.leukocytes;
+        ePatient.platelets = this.platelets;
+        ePatient.neutrophils = this.neutrophils;
+        ePatient.lymphocytes = this.lymphocytes;
+        ePatient.DminusDimer = this.DminusDimer;
+        ePatient.AG = this.AG;
+        ePatient.SD = this.SD;
+        ePatient.IBS = this.IBS;
+        ePatient.HOBL = this.HOBL;
+        ePatient.HBP = this.HBP;
+        ePatient.CRP = this.CRP;
+        ePatient.SKF = this.SKF;
+        ePatient.neutrophilMinusLymphocyteRatio = this.neutrophilMinusLymphocyteRatio;
+        ePatient.cabsType = this.cabsType;
+        ePatient.BMI = this.BMI;
+        ePatient.overweight = this.overweight;
+        ePatient.smoking = this.smoking;
+        ePatient.heredity = this.heredity;
+        ePatient.dyslipidemia = this.dyslipidemia;
+        ePatient.HOBLminusBA = this.HOBLminusBA;
+        ePatient.PIKS = this.PIKS;
+        ePatient.FP = this.FP;
+        ePatient.SU = this.SU;
+        ePatient.TH = this.TH;
+        ePatient.varicose = this.varicose;
+        ePatient.cardiacLesions = this.cardiacLesions;
+        ePatient.LLALesions = this.LLALesions;
+        ePatient.FCAnginaPectoris = this.FCAnginaPectoris;
+        ePatient.FCCHF = this.FCCHF;
+        ePatient.LVEF = this.LVEF;
+        ePatient.ISs = this.ISs;
+        ePatient.EuroScore2 = this.EuroScore2;
+        ePatient.IK = this.IK;
+        ePatient.IKTime = this.IKTime;
+        ePatient.aorticClampTime = this.aorticClampTime;
+        ePatient.TminusBodies = this.TminusBodies;
+        ePatient.numberOfCardioplegias = this.numberOfCardioplegias;
+        ePatient.VPminusLZ = this.VPminusLZ;
+        ePatient.revascularizationIndex = this.revascularizationIndex;
+        ePatient.YminusTypeCOBS = this.YminusTypeCOBS;
+        ePatient.LIMAExcretion = this.LIMAExcretion;
+        ePatient.RIMAExcretion = this.RIMAExcretion;
+        ePatient.LAUsage = this.LAUsage;
+        ePatient.AVUsage = this.AVUsage;
+        ePatient.bloodLoss = this.bloodLoss;
+        ePatient.ALVTime = this.ALVTime;
+        ePatient.inotropicSupport = this.inotropicSupport;
+        ePatient.pneumonia = this.pneumonia;
+        ePatient.SN = this.SN;
+        ePatient.FPminusTP = this.FPminusTP;
+        ePatient.pleuralEffusion = this.pleuralEffusion;
+        ePatient.hydropericardium = this.hydropericardium;
+        ePatient.pneumothorax = this.pneumothorax;
+        ePatient.sternalComplications = this.sternalComplications;
+        ePatient.AKK = this.AKK;
+        ePatient.iAPF = this.iAPF;
+        ePatient.spironolactone = this.spironolactone;
+        ePatient.diuretics = this.diuretics;
+        ePatient.cordaron = this.cordaron;
+        ePatient.hospitalizationDuration = this.hospitalizationDuration;
+        ePatient.CEAfteer = this.CEAfteer;
+        ePatient.ANCOperationsAfter = this.ANCOperationsAfter;
+        ePatient.antiplateletAgentsAfter = this.antiplateletAgentsAfter;
+        ePatient.anticoagulants = this.anticoagulants;
+        ePatient.BABAfter = this.BABAfter;
+        ePatient.AKKAfter = this.AKKAfter;
+        ePatient.iAPFAfter = this.iAPFAfter;
+        ePatient.ARAAfter = this.ARAAfter;
+        ePatient.diureticsAfter = this.diureticsAfter;
+        ePatient.statins = this.statins;
+        ePatient.heartAttack = this.heartAttack;
+        ePatient.PCI = this.PCI;
+        ePatient.insult = this.insult;
+        ePatient.death = this.death;
+    }
+
     @Id
     @Column(name = "\"id\"")
     public int id;
     @Column(name = "\"dateOfAdmission\"")
     public String dateOfAdmission;
     @Column(name = "\"sex\"")
-    public boolean sex;
+    public String sex;
     @Column(name = "\"age\"")
     public String age;
     @Column(name = "\"urea\"")
@@ -292,15 +378,15 @@ public class EPatient {
     @Column(name = "\"DminusDimer\"")
     public String DminusDimer; //
     @Column(name = "\"AG\"")
-    public boolean AG;
+    public String AG;
     @Column(name = "\"SD\"")
-    public boolean SD;
+    public String SD;
     @Column(name = "\"IBS\"")
-    public boolean IBS;
+    public String IBS;
     @Column(name = "\"HOBL\"")
-    public boolean HOBL;
+    public String HOBL;
     @Column(name = "\"HBP\"")
-    public boolean HBP;
+    public String HBP;
     @Column(name = "\"CRP\"")
     public String CRP;
     @Column(name = "\"SKF\"")
@@ -308,37 +394,37 @@ public class EPatient {
     @Column(name = "\"neutrophilMinusLymphocyteRatio\"")
     public String neutrophilMinusLymphocyteRatio; //
     @Column(name = "\"cabsType\"")
-    public boolean cabsType;
+    public String cabsType;
     @Column(name = "\"BMI\"")
     public String BMI;
     @Column(name = "\"overweight\"")
-    public boolean overweight;
+    public String overweight;
     @Column(name = "\"smoking\"")
-    public boolean smoking;
+    public String smoking;
     @Column(name = "\"heredity\"")
-    public boolean heredity;
+    public String heredity;
     @Column(name = "\"dyslipidemia\"")
-    public boolean dyslipidemia;
+    public String dyslipidemia;
     @Column(name = "\"HOBLminusBA\"")
-    public boolean HOBLminusBA; //
+    public String HOBLminusBA; //
     @Column(name = "\"PIKS\"")
-    public boolean PIKS;
+    public String PIKS;
     @Column(name = "\"FP\"")
-    public boolean FP;
+    public String FP;
     @Column(name = "\"SU\"")
-    public boolean SU;
+    public String SU;
     @Column(name = "\"TH\"")
-    public boolean TH;
+    public String TH;
     @Column(name = "\"varicose\"")
-    public boolean varicose;
+    public String varicose;
     @Column(name = "\"cardiacLesions\"")
-    public boolean cardiacLesions;
+    public String cardiacLesions;
     @Column(name = "\"LLALesions\"")
-    public boolean LLALesions;
+    public String LLALesions;
     @Column(name = "\"FCAnginaPectoris\"")
-    public boolean FCAnginaPectoris;
+    public String FCAnginaPectoris;
     @Column(name = "\"FCCHF\"")
-    public boolean FCCHF;
+    public String FCCHF;
     @Column(name = "\"LVEF\"")
     public String LVEF;
     @Column(name = "\"ISs\"")
@@ -346,7 +432,7 @@ public class EPatient {
     @Column(name = "\"EuroScore2\"")
     public String EuroScore2;
     @Column(name = "\"IK\"")
-    public boolean IK;
+    public String IK;
     @Column(name = "\"IKTime\"")
     public String IKTime;
     @Column(name = "\"aorticClampTime\"")
@@ -354,80 +440,80 @@ public class EPatient {
     @Column(name = "\"TminusBodies\"")
     public String TminusBodies; //
     @Column(name = "\"numberOfCardioplegias\"")
-    public boolean numberOfCardioplegias;
+    public String numberOfCardioplegias;
     @Column(name = "\"VPminusLZ\"")
-    public boolean VPminusLZ; //
+    public String VPminusLZ; //
     @Column(name = "\"revascularizationIndex\"")
-    public boolean revascularizationIndex;
+    public String revascularizationIndex;
     @Column(name = "\"YminusTypeCOBS\"")
-    public boolean YminusTypeCOBS; //
+    public String YminusTypeCOBS; //
     @Column(name = "\"LIMAExcretion\"")
-    public boolean LIMAExcretion;
+    public String LIMAExcretion;
     @Column(name = "\"RIMAExcretion\"")
     public String RIMAExcretion;
     @Column(name = "\"LAUsage\"")
-    public boolean LAUsage;
+    public String LAUsage;
     @Column(name = "\"AVUsage\"")
-    public boolean AVUsage;
+    public String AVUsage;
     @Column(name = "\"bloodLoss\"")
     public String bloodLoss;
     @Column(name = "\"ALVTime\"")
     public String ALVTime;
     @Column(name = "\"inotropicSupport\"")
-    public boolean inotropicSupport;
+    public String inotropicSupport;
     @Column(name = "\"pneumonia\"")
-    public boolean pneumonia;
+    public String pneumonia;
     @Column(name = "\"SN\"")
-    public boolean SN;
+    public String SN;
     @Column(name = "\"FPminusTP\"")
-    public boolean FPminusTP; //
+    public String FPminusTP; //
     @Column(name = "\"pleuralEffusion\"")
-    public boolean pleuralEffusion;
+    public String pleuralEffusion;
     @Column(name = "\"hydropericardium\"")
-    public boolean hydropericardium;
+    public String hydropericardium;
     @Column(name = "\"pneumothorax\"")
-    public boolean pneumothorax;
+    public String pneumothorax;
     @Column(name = "\"sternalComplications\"")
-    public boolean sternalComplications;
+    public String sternalComplications;
     @Column(name = "\"AKK\"")
-    public boolean AKK;
+    public String AKK;
     @Column(name = "\"iAPF\"")
-    public boolean iAPF;
+    public String iAPF;
     @Column(name = "\"spironolactone\"")
-    public boolean spironolactone;
+    public String spironolactone;
     @Column(name = "\"diuretics\"")
-    public boolean diuretics;
+    public String diuretics;
     @Column(name = "\"cordaron\"")
-    public boolean cordaron;
+    public String cordaron;
     @Column(name = "\"hospitalizationDuration\"")
     public String hospitalizationDuration;
     @Column(name = "\"CEAfteer\"")
-    public boolean CEAfteer;
+    public String CEAfteer;
     @Column(name = "\"ANCOperationsAfter\"")
-    public boolean ANCOperationsAfter;
+    public String ANCOperationsAfter;
     @Column(name = "\"antiplateletAgentsAfter\"")
-    public boolean antiplateletAgentsAfter;
+    public String antiplateletAgentsAfter;
     @Column(name = "\"anticoagulants\"")
-    public boolean anticoagulants;
+    public String anticoagulants;
     @Column(name = "\"BABAfter\"")
-    public boolean BABAfter;
+    public String BABAfter;
     @Column(name = "\"AKKAfter\"")
-    public boolean AKKAfter;
+    public String AKKAfter;
     @Column(name = "\"iAPFAfter\"")
-    public boolean iAPFAfter;
+    public String iAPFAfter;
     @Column(name = "\"ARAAfter\"")
-    public boolean ARAAfter;
+    public String ARAAfter;
     @Column(name = "\"diureticsAfter\"")
-    public boolean diureticsAfter;
+    public String diureticsAfter;
     @Column(name = "\"statins\"")
-    public boolean statins;
+    public String statins;
     @Column(name = "\"heartAttack\"")
-    public boolean heartAttack;
+    public String heartAttack;
     @Column(name = "\"PCI\"")
-    public boolean PCI;
+    public String PCI;
     @Column(name = "\"insult\"")
-    public boolean insult;
+    public String insult;
     @Column(name = "\"death\"")
-    public boolean death;
+    public String death;
 }
 

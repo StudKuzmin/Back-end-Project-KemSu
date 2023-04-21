@@ -1,7 +1,6 @@
 package classes.controller.requests;
 
-
-import classes.controller.controller.PatientsController;
+import classes.controller.controller.interfaces.IPatientsController;
 import classes.database.entity.EError;
 import classes.database.entity.EPatient;
 import jakarta.inject.Inject;
@@ -13,7 +12,7 @@ import java.util.List;
 @Path("/patients")
 public class PatientsRequests {
     @Inject
-    PatientsController patientsController;
+    IPatientsController patientsController;
 
     @GET
     @Path("/")

@@ -1,23 +1,25 @@
 package classes.controller.controller;
 
-import classes.controller.controllerLogic.ControllerLogic;
-import classes.model.requestsModel.UsersModel;
+import classes.controller.controller.interfaces.IUsersController;
+import classes.controller.controllerLogic.IControllerLogic;
+import classes.database.entity.EPassword;
 import classes.database.entity.EUser;
+import classes.model.modelRequests.interfaces.IUsersModel;
 import jakarta.inject.Inject;
 
 import java.util.List;
 
 
-public class UsersController {
+public class UsersController implements IUsersController {
     @Inject
-    UsersModel usersModel;
+    IUsersModel usersModel;
     @Inject
-    ControllerLogic controllerLogic;
+    IControllerLogic controllerLogic;
 
-    public String userLoginPost(String userDataJSON) throws Exception{
+    public String postUserLogin(String userDataJSON) throws Exception{
         try {
-            EUser euser = controllerLogic.userFromJson(userDataJSON);
-            Integer userId = usersModel.userLoginPost(euser);
+            EUser euser = controllerLogic.fromUserJson(userDataJSON);
+            Integer userId = usersModel.postUserLogin(euser);
             if (userId != null) {
                 return controllerLogic.getUserToken(userId,"user");
             }
@@ -36,7 +38,7 @@ public class UsersController {
         List<EUser> userList;
 
         try {
-            accessTokenIsOk = controllerLogic.checkUserToken(accessToken, "accessToken");
+            accessTokenIsOk = controllerLogic.checkToken(accessToken, "accessToken");
             if (accessTokenIsOk) {
                 userList = usersModel.getUserList();
                 return userList;
@@ -55,11 +57,11 @@ public class UsersController {
         EUser euser;
         boolean accessTokenIsOk = false;
 
-        accessTokenIsOk = controllerLogic.checkUserToken(accessToken, "accessToken");
+        accessTokenIsOk = controllerLogic.checkToken(accessToken, "accessToken");
         if(accessTokenIsOk){
             boolean userCreated = false;
             try {
-                euser = controllerLogic.userFromJson(userDataJSON);
+                euser = controllerLogic.fromUserJson(userDataJSON);
                 userCreated = usersModel.createUser(euser);
                 if(userCreated)
                     return euser;
@@ -79,7 +81,7 @@ public class UsersController {
         boolean accessTokenIsOk = false;
         EUser euser;
 
-        accessTokenIsOk = controllerLogic.checkUserToken(accessToken, "accessToken");
+        accessTokenIsOk = controllerLogic.checkToken(accessToken, "accessToken");
         if(accessTokenIsOk){
             try {
                 euser = usersModel.getOneUser(userId);
@@ -98,7 +100,7 @@ public class UsersController {
     public EUser deleteOneUser(String accessToken, String userId) throws Exception{
         boolean accessTokenIsOk = false;
 
-        accessTokenIsOk = controllerLogic.checkUserToken(accessToken, "accessToken");
+        accessTokenIsOk = controllerLogic.checkToken(accessToken, "accessToken");
         if(accessTokenIsOk){
             try {
                 return usersModel.deleteOneUser(userId);
@@ -116,11 +118,30 @@ public class UsersController {
     public EUser updateOneUser(String accessToken, String userId, String userDataJSON) throws Exception{
         boolean accessTokenIsOk = false;
 
-        accessTokenIsOk = controllerLogic.checkUserToken(accessToken, "accessToken");
+        accessTokenIsOk = controllerLogic.checkToken(accessToken, "accessToken");
         if(accessTokenIsOk){
             try {
-                EUser newDataUser = controllerLogic.userFromJson(userDataJSON);
+                EUser newDataUser = controllerLogic.fromUserJson(userDataJSON);
                 return usersModel.updateOneUser(userId, newDataUser);
+            }
+            catch(Exception ex){
+                System.out.printf("ERROR in %s.%s: %s%n",
+                        this.getClass(),
+                        new Throwable().getStackTrace()[0].getMethodName(),
+                        ex.getMessage());
+                throw new Exception("ERROR while update one user");
+            }
+        }
+        else throw new Exception("BAD TOKEN");
+    }
+
+    public EPassword resetPassword(String accessToken, String userId, String newPassword) throws Exception{
+        boolean accessTokenIsOk = false;
+
+        accessTokenIsOk = controllerLogic.checkToken(accessToken, "accessToken");
+        if(accessTokenIsOk){
+            try {
+                return usersModel.resetPassword(userId, newPassword);
             }
             catch(Exception ex){
                 System.out.printf("ERROR in %s.%s: %s%n",

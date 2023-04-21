@@ -1,13 +1,14 @@
 package classes.controller.controller;
 
-import classes.controller.controllerLogic.ControllerLogic;
+import classes.controller.controller.interfaces.ITokensController;
+import classes.controller.controllerLogic.IControllerLogic;
 import classes.database.entity.EUser;
 import jakarta.inject.Inject;
 
 
-public class TokensController {
+public class TokensController implements ITokensController {
     @Inject
-    ControllerLogic controllerLogic;
+    IControllerLogic controllerLogic;
 
     public String refreshToken(String refreshToken) throws Exception {
         String token;
@@ -15,7 +16,7 @@ public class TokensController {
 
         boolean refreshTokenIsOk;
 
-        refreshTokenIsOk = controllerLogic.checkUserToken(refreshToken, "refreshToken");
+        refreshTokenIsOk = controllerLogic.checkToken(refreshToken, "refreshToken");
 
         if(refreshTokenIsOk) {
             euser = controllerLogic.getUserDataWithToken(refreshToken);

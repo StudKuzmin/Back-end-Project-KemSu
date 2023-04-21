@@ -1,25 +1,26 @@
 package classes.controller.controller;
 
-import classes.controller.controllerLogic.ControllerLogic;
+import classes.controller.controller.interfaces.IPatientsController;
+import classes.controller.controllerLogic.IControllerLogic;
 import classes.database.entity.EPatient;
-import classes.model.requestsModel.PatientsModel;
+import classes.model.modelRequests.interfaces.IPatientsModel;
 import jakarta.inject.Inject;
 
 import java.util.List;
 
 
-public class PatientsController {
+public class PatientsController implements IPatientsController {
     @Inject
-    PatientsModel patientsModel;
+    IPatientsModel patientsModel;
     @Inject
-    ControllerLogic controllerLogic;
+    IControllerLogic controllerLogic;
 
     public List<EPatient> getPatientList(String accessToken) throws Exception{
         boolean accessTokenIsOk = false;
         List<EPatient> patientList;
 
         try {
-            accessTokenIsOk = controllerLogic.checkUserToken(accessToken, "accessToken");
+            accessTokenIsOk = controllerLogic.checkToken(accessToken, "accessToken");
             if (accessTokenIsOk) {
                 patientList = patientsModel.getPatientList();
                 return patientList;
@@ -35,13 +36,11 @@ public class PatientsController {
         }
     }
     public EPatient createPatient(String accessToken, String patientDataJSON) throws Exception{
-        boolean accessTokenIsOk = controllerLogic.checkUserToken(accessToken, "accessToken");
+        boolean accessTokenIsOk = controllerLogic.checkToken(accessToken, "accessToken");
         if(accessTokenIsOk){
             boolean patientCreated = false;
             try {
-                EPatient epatient = controllerLogic.getPatientData(patientDataJSON);
-                System.out.println("HEREEEEEEEEEEEEEEEEEEEEEEE " + epatient.id);
-                System.out.println("HEREEEEEEEEEEEEEEEEEEEEEEE " + patientDataJSON);
+                EPatient epatient = controllerLogic.fromPatientJson(patientDataJSON);
                 patientCreated = patientsModel.createPatient(epatient);
                 if(patientCreated)
                     return epatient;
@@ -59,7 +58,7 @@ public class PatientsController {
     }
 
     public EPatient getOnePatient(String accessToken, String patientId) throws Exception{
-        boolean accessTokenIsOk = controllerLogic.checkUserToken(accessToken, "accessToken");
+        boolean accessTokenIsOk = controllerLogic.checkToken(accessToken, "accessToken");
         if(accessTokenIsOk){
             try {
                 EPatient epatient = patientsModel.getOnePatient(patientId);
@@ -77,7 +76,7 @@ public class PatientsController {
     }
 
     public EPatient deleteOnePatient(String accessToken, String patientId) throws Exception{
-        boolean accessTokenIsOk = controllerLogic.checkUserToken(accessToken, "accessToken");
+        boolean accessTokenIsOk = controllerLogic.checkToken(accessToken, "accessToken");
         if(accessTokenIsOk){
             try {
                 return patientsModel.deleteOnePatient(patientId);
@@ -93,10 +92,10 @@ public class PatientsController {
         else throw new Exception("BAD TOKEN");
     }
     public EPatient updateOnePatient(String accessToken, String patiendId, String patientDataJSON) throws Exception{
-        boolean accessTokenIsOk = controllerLogic.checkUserToken(accessToken, "accessToken");
+        boolean accessTokenIsOk = controllerLogic.checkToken(accessToken, "accessToken");
         if(accessTokenIsOk){
             try {
-                EPatient newPatientData = controllerLogic.getPatientData(patientDataJSON);
+                EPatient newPatientData = controllerLogic.fromPatientJson(patientDataJSON);
                 return patientsModel.updateOnePatient(patiendId, newPatientData);
             }
             catch(Exception ex){

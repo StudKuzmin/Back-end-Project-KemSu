@@ -1,7 +1,5 @@
 package classes.controller.jwt;
 
-import classes.controller.jwt.interfacejwt.IJsonWebToken;
-
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -27,7 +25,7 @@ public class JsonWebToken implements IJsonWebToken {
                     .withIssuer(tokenType)
                     .withClaim("id", userId)
                     .withClaim("role", role)
-                    .withExpiresAt(expireDate)
+//                    .withExpiresAt(expireDate)
                     .sign(algorithm);
 
             if(token == null){

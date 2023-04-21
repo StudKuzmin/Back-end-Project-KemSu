@@ -37,6 +37,16 @@ public class EUser {
         this.deletionDate = String.valueOf(deletionDate);
     }
 
+    public void clone(EUser euser){
+        euser.id = this.id;
+        euser.role = this.role;
+        euser.status = this.status;
+        euser.password = this.password;
+        euser.login = this.login;
+        euser.registrationDate = this.registrationDate;
+        euser.deletionDate = this.deletionDate;
+        euser.fullName = this.fullName;
+    }
     @Id
     @Column(name = "\"id\"")
     public int id;
