@@ -1,13 +1,15 @@
 package classes.database.dbservice;
 
-import classes.database.entity.EUser;
-import classes.database.entity.EPatient;
+import classes.database.entity.patient.EPatientCabs;
+import classes.database.entity.patient.EPatientCovidProperties;
+import classes.database.entity.user.EUser;
+import classes.database.entity.patient.EPatientCovid;
 import jakarta.annotation.Resource;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import jakarta.persistence.Query;
-import jakarta.transaction.UserTransaction;
+import jakarta.transaction.*;
 
 import java.util.*;
 
@@ -60,14 +62,58 @@ public class DBservice implements IDBservice{
             throw new Exception("ERROR while select");
         }
     }
-    public List<EPatient> selectPatients() throws Exception{
+    public EUser selectUserById(String userId) throws Exception{
         try {
-            String query = "patients.findAll";
+            String query = "users.findAll";
 
             userTransaction.begin();
             entityManager.joinTransaction();
 
-            List<EPatient> entityList = entityManager.createNamedQuery(query).getResultList();
+            List<EUser> entityList = entityManager.createNamedQuery(query).getResultList();
+            for (EUser e : entityList)
+                if(userId.equals(e.id)){
+                    userTransaction.commit();
+                    return e;
+                }
+            throw new Exception("userId not found");
+        }
+        catch (Exception ex) {
+            System.out.printf("ERROR in %s.%s: %s%n",
+                    this.getClass(),
+                    new Throwable().getStackTrace()[0].getMethodName(),
+                    ex.getMessage());
+            throw new Exception("ERROR while select");
+        }
+    }
+    public List<EPatientCovid> selectPatientsCovid() throws Exception{
+        try {
+            String query = "patientsCovid.findAll";
+
+            userTransaction.begin();
+            entityManager.joinTransaction();
+
+            List<EPatientCovid> entityList = entityManager.createNamedQuery(query).getResultList();
+            userTransaction.commit();
+
+            return entityList;
+        }
+        catch (Exception ex) {
+            System.out.printf("ERROR in %s.%s: %s%n",
+                    this.getClass(),
+                    new Throwable().getStackTrace()[0].getMethodName(),
+                    ex.getMessage());
+            throw new Exception("ERROR while select");
+        }
+    }
+
+    public List<EPatientCabs> selectPatientsCabs() throws Exception{
+        try {
+            String query = "patientsCabs.findAll";
+
+            userTransaction.begin();
+            entityManager.joinTransaction();
+
+            List<EPatientCabs> entityList = entityManager.createNamedQuery(query).getResultList();
             userTransaction.commit();
 
             return entityList;
@@ -86,7 +132,7 @@ public class DBservice implements IDBservice{
             userTransaction.begin();
             entityManager.joinTransaction();
 
-            Query query = entityManager.createNativeQuery("DELETE FROM " + entity + " WHERE id = " + entityId);
+            Query query = entityManager.createNativeQuery("DELETE FROM " + entity + " WHERE id = \"" + entityId + "\"");
             query.executeUpdate();
 
             userTransaction.commit();
@@ -103,126 +149,88 @@ public class DBservice implements IDBservice{
         return false;
     }
 
-    public boolean update(String entity, String oldId, Object newEntityData){
+    public boolean updateUserInfo(EUser newUserData){
         String action = "updateById";
         try {
             userTransaction.begin();
             entityManager.joinTransaction();
 
-            switch(entity) {
-                case "users":
-                    EUser newUserData = (EUser)newEntityData;
-                    entityManager.createNamedQuery(entity + "." + action)
-                            .setParameter("id", newUserData.id)
-                            .setParameter("registrationDate", newUserData.registrationDate)
-                            .setParameter("fullName", newUserData.fullName)
-                            .setParameter("login", newUserData.login)
-                            .setParameter("password", newUserData.password)
-                            .setParameter("role", newUserData.role)
-                            .setParameter("status", newUserData.status)
-                            .setParameter("deletionDate", newUserData.deletionDate)
-                            .setParameter("id", Integer.valueOf(oldId))
-                            .executeUpdate();
+            entityManager.createNamedQuery("users.updateById")
+                    .setParameter("firstName", newUserData.firstName)
+                    .setParameter("middleName", newUserData.middleName)
+                    .setParameter("lastName", newUserData.lastName)
+                    .setParameter("id", newUserData.id)
+                    .executeUpdate();
 
-                    userTransaction.commit();
-                    return true;
-                case "patients":
-                    EPatient newPatientData = (EPatient)newEntityData;
-                    System.out.println("new id = " + newPatientData.id);
-                    entityManager.createNamedQuery(entity + "." + action)
-                            .setParameter("id", newPatientData.id)
-                            .setParameter("dateOfAdmission", newPatientData.dateOfAdmission)
-                            .setParameter("sex", newPatientData.sex)
-                            .setParameter("age", newPatientData.age)
-                            .setParameter("urea", newPatientData.urea)
-                            .setParameter("creatinine", newPatientData.creatinine)
-                            .setParameter("AST", newPatientData.AST)
-                            .setParameter("ALT", newPatientData.ALT)
-                            .setParameter("glucose", newPatientData.glucose)
-                            .setParameter("leukocytes", newPatientData.leukocytes)
-                            .setParameter("platelets", newPatientData.platelets)
-                            .setParameter("neutrophils", newPatientData.neutrophils)
-                            .setParameter("lymphocytes", newPatientData.lymphocytes)
-                            .setParameter("DminusDimer", newPatientData.DminusDimer)
-                            .setParameter("AG", newPatientData.AG)
-                            .setParameter("SD", newPatientData.SD)
-                            .setParameter("IBS", newPatientData.IBS)
-                            .setParameter("HOBL", newPatientData.HOBL)
-                            .setParameter("HBP", newPatientData.HBP)
-                            .setParameter("CRP", newPatientData.CRP)
-                            .setParameter("SKF", newPatientData.SKF)
-                            .setParameter("neutrophilMinusLymphocyteRatio", newPatientData.neutrophilMinusLymphocyteRatio)
-                            .setParameter("cabsType", newPatientData.cabsType)
-                            .setParameter("BMI", newPatientData.BMI)
-                            .setParameter("overweight", newPatientData.overweight)
-                            .setParameter("smoking", newPatientData.smoking)
-                            .setParameter("heredity", newPatientData.heredity)
-                            .setParameter("dyslipidemia", newPatientData.dyslipidemia)
-                            .setParameter("HOBLminusBA", newPatientData.HOBLminusBA)
-                            .setParameter("PIKS", newPatientData.PIKS)
-                            .setParameter("FP", newPatientData.FP)
-                            .setParameter("SU", newPatientData.SU)
-                            .setParameter("TH", newPatientData.TH)
-                            .setParameter("varicose", newPatientData.varicose)
-                            .setParameter("cardiacLesions", newPatientData.cardiacLesions)
-                            .setParameter("LLALesions", newPatientData.LLALesions)
-                            .setParameter("FCAnginaPectoris", newPatientData.FCAnginaPectoris)
-                            .setParameter("FCCHF", newPatientData.FCCHF)
-                            .setParameter("LVEF", newPatientData.LVEF)
-                            .setParameter("ISs", newPatientData.ISs)
-                            .setParameter("EuroScore2", newPatientData.EuroScore2)
-                            .setParameter("IK", newPatientData.IK)
-                            .setParameter("IKTime", newPatientData.IKTime)
-                            .setParameter("aorticClampTime", newPatientData.aorticClampTime)
-                            .setParameter("TminusBodies", newPatientData.TminusBodies)
-                            .setParameter("numberOfCardioplegias", newPatientData.numberOfCardioplegias)
-                            .setParameter("VPminusLZ", newPatientData.VPminusLZ)
-                            .setParameter("revascularizationIndex", newPatientData.revascularizationIndex)
-                            .setParameter("YminusTypeCOBS", newPatientData.YminusTypeCOBS)
-                            .setParameter("LIMAExcretion", newPatientData.LIMAExcretion)
-                            .setParameter("RIMAExcretion", newPatientData.RIMAExcretion)
-                            .setParameter("LAUsage", newPatientData.LAUsage)
-                            .setParameter("AVUsage", newPatientData.AVUsage)
-                            .setParameter("bloodLoss", newPatientData.bloodLoss)
-                            .setParameter("ALVTime", newPatientData.ALVTime)
-                            .setParameter("inotropicSupport", newPatientData.inotropicSupport)
-                            .setParameter("pneumonia", newPatientData.pneumonia)
-                            .setParameter("SN", newPatientData.SN)
-                            .setParameter("FPminusTP", newPatientData.FPminusTP)
-                            .setParameter("pleuralEffusion", newPatientData.pleuralEffusion)
-                            .setParameter("hydropericardium", newPatientData.hydropericardium)
-                            .setParameter("pneumothorax", newPatientData.pneumothorax)
-                            .setParameter("sternalComplications", newPatientData.sternalComplications)
-                            .setParameter("AKK", newPatientData.AKK)
-                            .setParameter("iAPF", newPatientData.iAPF)
-                            .setParameter("spironolactone", newPatientData.spironolactone)
-                            .setParameter("diuretics", newPatientData.diuretics)
-                            .setParameter("cordaron", newPatientData.cordaron)
-                            .setParameter("hospitalizationDuration", newPatientData.hospitalizationDuration)
-                            .setParameter("CEAfteer", newPatientData.CEAfteer)
-                            .setParameter("ANCOperationsAfter", newPatientData.ANCOperationsAfter)
-                            .setParameter("antiplateletAgentsAfter", newPatientData.antiplateletAgentsAfter)
-                            .setParameter("anticoagulants", newPatientData.anticoagulants)
-                            .setParameter("BABAfter", newPatientData.BABAfter)
-                            .setParameter("AKKAfter", newPatientData.AKKAfter)
-                            .setParameter("iAPFAfter", newPatientData.iAPFAfter)
-                            .setParameter("ARAAfter", newPatientData.ARAAfter)
-                            .setParameter("diureticsAfter", newPatientData.diureticsAfter)
-                            .setParameter("statins", newPatientData.statins)
-                            .setParameter("heartAttack", newPatientData.heartAttack)
-                            .setParameter("PCI", newPatientData.PCI)
-                            .setParameter("insult", newPatientData.insult)
-                            .setParameter("death", newPatientData.death)
-                            .setParameter("id", Integer.valueOf(oldId))
-                            .executeUpdate();
+            userTransaction.commit();
+            return true;
 
-                    userTransaction.commit();
-                    return true;
-                default:
-                    return false;
-            }
+            } catch (Exception ex) {
+            System.out.printf("ERROR in %s.%s: %s%n",
+                    this.getClass(),
+                    new Throwable().getStackTrace()[0].getMethodName(),
+                    ex.getMessage());
+            return false;
         }
-        catch (Exception ex) {
+    }
+
+    public boolean updatePatientCovid(EPatientCovid ePatientCovid){
+        try {
+            userTransaction.begin();
+            entityManager.joinTransaction();
+
+            EPatientCovid ep = entityManager.find(EPatientCovid.class, ePatientCovid.id);
+            ep.description = ePatientCovid.description;
+            ep.properties = ePatientCovid.properties;
+
+
+            userTransaction.commit();
+            return true;
+
+        } catch (Exception ex) {
+            System.out.printf("ERROR in %s.%s: %s%n",
+                    this.getClass(),
+                    new Throwable().getStackTrace()[0].getMethodName(),
+                    ex.getMessage());
+            return false;
+        }
+    }
+    public boolean updateUserPassword(EUser newUserData){
+        try {
+            userTransaction.begin();
+            entityManager.joinTransaction();
+
+            entityManager.createNamedQuery("users.updatePasswordById")
+                    .setParameter("password", newUserData.password)
+                    .setParameter("id", newUserData.id)
+                    .executeUpdate();
+
+            userTransaction.commit();
+            return true;
+
+        } catch (Exception ex) {
+            System.out.printf("ERROR in %s.%s: %s%n",
+                    this.getClass(),
+                    new Throwable().getStackTrace()[0].getMethodName(),
+                    ex.getMessage());
+            return false;
+        }
+    }
+
+    public boolean updatePatientCabs(EPatientCabs ePatientCabs){
+        try {
+            userTransaction.begin();
+            entityManager.joinTransaction();
+
+            EPatientCabs ep = entityManager.find(EPatientCabs.class, ePatientCabs.id);
+            ep.description = ePatientCabs.description;
+            ep.properties = ePatientCabs.properties;
+
+
+            userTransaction.commit();
+            return true;
+
+        } catch (Exception ex) {
             System.out.printf("ERROR in %s.%s: %s%n",
                     this.getClass(),
                     new Throwable().getStackTrace()[0].getMethodName(),

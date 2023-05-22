@@ -5,8 +5,9 @@ http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
 
     <persistence-unit name="dbkardiounit" transaction-type="JTA">
         <jta-data-source>dbkardio</jta-data-source>
-        <class>classes.database.entity.EUser</class>
-        <class>classes.database.entity.EPatient</class>
+        <class>classes.database.entity.user.EUser</class>
+        <class>classes.database.entity.patient.EPatientCovid</class>
+        <class>classes.database.entity.patient.EPatientCabs</class>
         <class>classes.database.entity.EToken</class>
         <class>classes.database.entity.EError</class>
     </persistence-unit>

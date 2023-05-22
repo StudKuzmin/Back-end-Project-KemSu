@@ -1,14 +1,17 @@
 package classes.controller.controller.interfaces;
 
-import classes.database.entity.EPatient;
+import classes.database.entity.patient.EPatientCovid;
+import classes.database.entity.patient.EPatientPage;
+import com.google.gson.JsonObject;
 
 import java.util.List;
+import java.util.Map;
 
 public interface IPatientsController {
-    public List<EPatient> getPatientList(String accessToken) throws Exception;
-    public EPatient createPatient(String accessToken, String patientDataJSON) throws Exception;
-    public EPatient getOnePatient(String accessToken, String patientId) throws Exception;
-    public EPatient deleteOnePatient(String accessToken, String patientId) throws Exception;
-    public EPatient updateOnePatient(String accessToken, String patiendId, String patientDataJSON) throws Exception;
+    public List<EPatientPage> getPatients(String accessToken) throws Exception;
+    public Map<String, String> postPatients(String accessToken, String patientDataJSON) throws Exception;
+    public Map<String, String> getPatientsPatientid(String accessToken, String patientId) throws Exception;
+    public void deletePatientsPatientid(String accessToken, String patientId) throws Exception;
+    public Map<String, String> patchPatientsPatientid(String accessToken, String patientId, String patientDataJSON) throws Exception;
 
 }

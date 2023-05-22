@@ -2,12 +2,13 @@ package classes.controller.requests;
 
 import classes.controller.controller.interfaces.IPatientsController;
 import classes.database.entity.EError;
-import classes.database.entity.EPatient;
+import classes.database.entity.patient.EPatientPage;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Response;
 
 import java.util.List;
+import java.util.Map;
 
 @Path("/patients")
 public class PatientsRequests {
@@ -19,9 +20,8 @@ public class PatientsRequests {
     @Consumes("application/json")
     @Produces("application/json")
     public Response getPatients(@HeaderParam("accessToken") String accessToken) {
-        List<EPatient> patientList;
         try {
-            patientList = patientsController.getPatientList(accessToken);
+            List<EPatientPage> patientList = patientsController.getPatients(accessToken);
             return Response
                     .ok(patientList)
                     .status(200)
@@ -29,7 +29,7 @@ public class PatientsRequests {
         }
         catch (Exception ex){
             return Response
-                    .ok(new EError("authorization failed"))
+                    .ok(new EError("Unauthorized", 401))
                     .status(401)
                     .build();
         }
@@ -40,77 +40,76 @@ public class PatientsRequests {
     @Produces("application/json")
     public Response postPatients(@HeaderParam("accessToken") String accessToken, String patientDataJSON) {
         try {
-            EPatient epatient = patientsController.createPatient(accessToken, patientDataJSON);
+            Map<String, String> insertedPatientData = patientsController.postPatients(accessToken, patientDataJSON);
+
             return Response
-                    .ok(epatient)
-                    .status(201)
+                    .ok(insertedPatientData)
+                    .status(200)
                     .build();
         }
         catch(Exception ex){
             return Response
-                    .ok(new EError("authorization failed"))
+                    .ok(new EError("Unauthorized", 401))
                     .status(401)
                     .build();
         }
     }
     @GET
-    @Path("/{id}")
+    @Path("/{patientId}")
     @Consumes("application/json")
     @Produces("application/json")
-    public Response getOnePatient(@HeaderParam("accessToken") String accessToken, @PathParam("id") String patientId) {
+    public Response getPatientsPatientid(@HeaderParam("accessToken") String accessToken, @PathParam("patientId") String patientId) {
         try {
-            EPatient epatient = patientsController.getOnePatient(accessToken, patientId);
+            Map<String, String> patientData = patientsController.getPatientsPatientid(accessToken, patientId);
 
             return Response
-                    .ok(epatient)
+                    .ok(patientData)
                     .status(200)
                     .build();
 
         }
         catch(Exception ex){
             return Response
-                    .ok(new EError("authorization failed"))
+                    .ok(new EError("Unauthorized", 401))
                     .status(401)
                     .build();
         }
     }
     @DELETE
-    @Path("/{id}")
+    @Path("/{patientId}")
     @Consumes("application/json")
     @Produces("application/json")
-    public Response deleteOnePatient(@HeaderParam("accessToken") String accessToken, @PathParam("id") String patientId) {
+    public Response deletePatientsPatientid(@HeaderParam("accessToken") String accessToken, @PathParam("patientId") String patientId) {
         try {
-            EPatient epatient;
-            epatient = patientsController.deleteOnePatient(accessToken, patientId);
+            patientsController.deletePatientsPatientid(accessToken, patientId);
             return Response
-                    .ok(epatient)
+                    .ok(new EError("Patient deleted successfully", 200))
                     .status(200)
                     .build();
         }
         catch(Exception ex){
             return Response
-                    .ok(new EError("authorization failed"))
+                    .ok(new EError("Unauthorized", 401))
                     .status(401)
                     .build();
         }
     }
     @PATCH
-    @Path("/{id}")
+    @Path("/{patientId}")
     @Consumes("application/json")
     @Produces("application/json")
-    public Response updateOnePatient(@HeaderParam("accessToken") String accessToken, @PathParam("id") String patientId, String patientDataJSON) {
+    public Response patchPatientsPatientid(@HeaderParam("accessToken") String accessToken, @PathParam("patientId") String patientId, String patientDataJSON) {
         try {
-            EPatient epatient;
-            epatient = patientsController.updateOnePatient(accessToken, patientId, patientDataJSON);
+            Map<String, String> patientData = patientsController.patchPatientsPatientid(accessToken, patientId, patientDataJSON);
 
             return Response
-                    .ok(epatient)
+                    .ok(patientData)
                     .status(200)
                     .build();
         }
         catch (Exception ex){
             return Response
-                    .ok(new EError("authorization failed"))
+                    .ok(new EError("Unauthorized", 401))
                     .status(401)
                     .build();
         }

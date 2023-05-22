@@ -2,12 +2,16 @@ package classes.model.modelRequests;
 
 import classes.database.dbservice.IDBservice;
 import classes.database.entity.EPassword;
-import classes.database.entity.EUser;
+import classes.database.entity.user.EUser;
+import classes.database.entity.user.EUserPage;
 import classes.model.modelLogic.IModelLogic;
 import classes.model.modelRequests.interfaces.IUsersModel;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.inject.Inject;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class UsersModel implements IUsersModel {
     @Inject
@@ -15,7 +19,7 @@ public class UsersModel implements IUsersModel {
     @Inject
     IModelLogic modelLogic;
 
-    public Integer postUserLogin(EUser euser){
+    public String postUsersLogin(EUser euser){
         String entity = "users";
         try {
             // Достаём из БД данные
@@ -24,8 +28,10 @@ public class UsersModel implements IUsersModel {
             // Расшифровка данных с БД
             List<EUser> decryptedUserList = modelLogic.getDecryptedUserList(userList);
 
+//            System.out.println("DECRYPT: " + decryptedUserList.get(0).userName + " " + decryptedUserList.get(0).password + " " + decryptedUserList.get(0).id);
+
             for (EUser e : decryptedUserList) {
-                if (euser.login.equals(e.login) && euser.password.equals(e.password)) {
+                if (euser.userName.equals(e.userName) && euser.password.equals(e.password)) {
                     return e.id;
                 }
             }
@@ -39,7 +45,7 @@ public class UsersModel implements IUsersModel {
             return null;
         }
     }
-    public List<EUser> getUserList() throws Exception{
+    public List<EUserPage> getUserList() throws Exception{
         String entity = "users";
         try {
             // Достаём из БД данные
@@ -48,7 +54,31 @@ public class UsersModel implements IUsersModel {
             // Расшифровка данных с БД
             List<EUser> decryptedUserList = modelLogic.getDecryptedUserList(userList);
 
-            return decryptedUserList;
+            // TODO сделать пагинацию страницу
+            List<EUserPage> decryptedUserPageList = new ArrayList<>();
+//            decryptedUserPageList.add(new EUserPage());
+//            for (int i = 0, currentElement = 1, page = 1; i < decryptedUserList.size(); i++, currentElement++){
+//                decryptedUserPageList.get(page-1).totalPages = decryptedUserList.size()/3+1;
+//                decryptedUserPageList.get(page-1).totalElements = decryptedUserList.size();
+//                decryptedUserPageList.get(page-1).contents.add(decryptedUserList.get(currentElement-1));
+//                decryptedUserPageList.get(page-1).numberOfElements++;
+//
+//                // На каждый 100й элемент меняется страница
+//                if(currentElement%5==0){
+//                    decryptedUserPageList.add(new EUserPage());
+//                    decryptedUserPageList.get(page-1).page = ++page;
+//                }
+//
+//
+//                System.out.println("TEST: " + page);
+//            }
+
+
+            decryptedUserPageList.add(
+                    new EUserPage(
+                            decryptedUserList, 1, 1, 1, decryptedUserList.size()));
+
+            return decryptedUserPageList;
         }
         catch (Exception ex){
             System.out.printf("ERROR in %s.%s: %s%n",
@@ -113,7 +143,6 @@ public class UsersModel implements IUsersModel {
                     }
             }
             throw new Exception("ID not found");
-            // Мой код is shit, sorry
         }
         catch (Exception ex){
             System.out.printf("ERROR in %s.%s: %s%n",
@@ -126,20 +155,21 @@ public class UsersModel implements IUsersModel {
     public EUser updateOneUser(String userId, EUser newUserData) throws Exception{
         try {
             // Достаём из БД старые данные
-            List<EUser> userList = dbservice.selectUsers();
+            List<EUser> encryptedUserList = dbservice.selectUsers();
 
             // Расшифровка старых данных с БД
-            List<EUser> decryptedUserList = modelLogic.getDecryptedUserList(userList);
+            List<EUser> decryptedUserList = modelLogic.getDecryptedUserList(encryptedUserList);
 
             // Шифровка новых данных для инсерта в БД
             EUser newEncryptedUserData = modelLogic.getEncryptedUser(newUserData);
 
             for(EUser e: decryptedUserList){
                 if (userId.equals(String.valueOf(e.id))){
-                    boolean updated = dbservice.update("users", userId, newEncryptedUserData);
-                    if (updated)
-                        return newUserData;
-                    throw new Exception("not updated");
+                    boolean updated = dbservice.updateUserInfo(newEncryptedUserData);
+                    if (!updated)
+                        throw new Exception("not updated");
+                    return newUserData;
+
                 }
             }
             throw new Exception("ID not found");
@@ -153,9 +183,13 @@ public class UsersModel implements IUsersModel {
         }
     }
 
-    public EPassword resetPassword(String userId, String newPassword) throws Exception{
+    public Map<String, String> resetPassword(String userId, Map<String, String> newPassword) throws Exception{
         String entity = "users";
         try {
+            // Преобразуем мап в сущность
+            ObjectMapper objectMapper = new ObjectMapper();
+            EPassword ePassword = objectMapper.convertValue(newPassword, EPassword.class);
+
             // Достаём из БД данные
             List<EUser> userList = dbservice.selectUsers();
 
@@ -164,11 +198,12 @@ public class UsersModel implements IUsersModel {
 
             for(EUser e: decryptedUserList){
                 if (userId.equals(String.valueOf(e.id))){
-                    e.password = newPassword;
+                    e.password = ePassword.password;
                     EUser encryptedUserData = modelLogic.getEncryptedUser(e);
-                    boolean updated = dbservice.update(entity, userId, encryptedUserData);
-                    if(updated)
-                        return new EPassword(newPassword);
+                    boolean updated = dbservice.updateUserPassword(encryptedUserData);
+                    if(updated) {
+                        return newPassword;
+                    }
                 }
             }
             throw new Exception("ID not found");

@@ -5,8 +5,10 @@ public class EError {
     public EError(){
 
     }
-    public EError(String error){
-        this.error = error;
+    public EError(String message, int statusCode){
+        this.message = message;
+        this.statusCode = statusCode;
     }
-    public String error;
+    public String message;
+    public int statusCode;
 }

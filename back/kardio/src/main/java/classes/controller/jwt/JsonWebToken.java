@@ -15,9 +15,9 @@ public class JsonWebToken implements IJsonWebToken {
         algorithm = Algorithm.HMAC256(secretWord);
     }
 
-    public String generateToken(int userId, String tokenType, String role) throws Exception{
+    public String generateToken(String userId, String tokenType, String role) throws Exception{
         String token = null;
-        long expireTime = (new Date().getTime()) + 86400000;
+        long expireTime = (new Date().getTime()) + 3600000; // 1 час
         Date expireDate = new Date(expireTime);
 
         try {
@@ -25,7 +25,7 @@ public class JsonWebToken implements IJsonWebToken {
                     .withIssuer(tokenType)
                     .withClaim("id", userId)
                     .withClaim("role", role)
-//                    .withExpiresAt(expireDate)
+                    .withExpiresAt(expireDate)
                     .sign(algorithm);
 
             if(token == null){

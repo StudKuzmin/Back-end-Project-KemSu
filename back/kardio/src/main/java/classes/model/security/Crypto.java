@@ -10,6 +10,8 @@ import java.util.Base64;
 public class Crypto implements ICrypto{
 
     public String encrypt(String data) throws Exception{
+        if (data == null)
+            return null;
 
 
         byte[] decodedKey = Base64.getDecoder().decode("secret");
@@ -32,7 +34,8 @@ public class Crypto implements ICrypto{
     }
 
     public String decrypt(String encryptedString) throws Exception{
-
+        if (encryptedString == null)
+            return null;
 
         byte[] decodedKey = Base64.getDecoder().decode("secret");
 
@@ -47,7 +50,7 @@ public class Crypto implements ICrypto{
             System.out.printf("ERROR in %s.%s: %s%n",
                     this.getClass(),
                     new Throwable().getStackTrace()[0].getMethodName(),
-                    ex.getMessage() + " ВОЗМОЖНО ИЗ БД ДОСТАЁМ ПРОСТО NULL");
+                    ex.getMessage());
             return null;
         }
     }
