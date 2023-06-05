@@ -9,6 +9,9 @@ import classes.model.modelRequests.interfaces.IUsersModel;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.inject.Inject;
 
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +22,9 @@ public class UsersModel implements IUsersModel {
     @Inject
     IModelLogic modelLogic;
 
-    public String postUsersLogin(EUser euser){
+    public EUser postUsersLogin(EUser euser){
+        long startTime = System.nanoTime();
+
         String entity = "users";
         try {
             // Достаём из БД данные
@@ -32,7 +37,10 @@ public class UsersModel implements IUsersModel {
 
             for (EUser e : decryptedUserList) {
                 if (euser.userName.equals(e.userName) && euser.password.equals(e.password)) {
-                    return e.id;
+                    long endTime = System.nanoTime();
+                    double durationSeconds = (endTime - startTime) / 1_000_000_000.0;
+                    System.out.println("TEST TIME " + new Throwable().getStackTrace()[0].getMethodName() + ": " + durationSeconds);
+                    return e;
                 }
             }
             return null;
@@ -46,6 +54,7 @@ public class UsersModel implements IUsersModel {
         }
     }
     public List<EUserPage> getUserList() throws Exception{
+        long startTime = System.nanoTime();
         String entity = "users";
         try {
             // Достаём из БД данные
@@ -78,6 +87,9 @@ public class UsersModel implements IUsersModel {
                     new EUserPage(
                             decryptedUserList, 1, 1, 1, decryptedUserList.size()));
 
+            long endTime = System.nanoTime();
+            double durationSeconds = (endTime - startTime) / 1_000_000_000.0;
+            System.out.println("TEST TIME " + new Throwable().getStackTrace()[0].getMethodName() + ": " + durationSeconds);
             return decryptedUserPageList;
         }
         catch (Exception ex){
@@ -89,10 +101,23 @@ public class UsersModel implements IUsersModel {
         }
     }
     public boolean createUser(EUser euser) throws Exception{
+        long startTime = System.nanoTime();
         try {
-            EUser encryptedUser = modelLogic.getEncryptedUser(euser);
+            long milliseconds = System.currentTimeMillis();
 
-            return dbservice.insert(encryptedUser);
+            // Преобразование миллисекунд в секунды
+            long seconds = milliseconds / 1000;
+
+            // Закидываем текущее время в поле
+            euser.createdAt = String.valueOf(seconds);
+
+            EUser encryptedUser = modelLogic.getEncryptedUser(euser);
+            boolean inserted = dbservice.insert(encryptedUser);
+
+            long endTime = System.nanoTime();
+            double durationSeconds = (endTime - startTime) / 1_000_000_000.0;
+            System.out.println("TEST TIME " + new Throwable().getStackTrace()[0].getMethodName() + ": " + durationSeconds);
+            return inserted;
         }
         catch (Exception ex){
             System.out.printf("ERROR in %s.%s: %s%n",
@@ -104,6 +129,7 @@ public class UsersModel implements IUsersModel {
     }
 
     public EUser getOneUser(String userId) throws Exception{
+        long startTime = System.nanoTime();
         String entity = "users";
         try {
             // Достаём из БД данные
@@ -114,6 +140,9 @@ public class UsersModel implements IUsersModel {
 
             for (EUser e : decryptedUserList) {
                 if (userId.equals(String.valueOf(e.id))) {
+                    long endTime = System.nanoTime();
+                    double durationSeconds = (endTime - startTime) / 1_000_000_000.0;
+                    System.out.println("TEST TIME " + new Throwable().getStackTrace()[0].getMethodName() + ": " + durationSeconds);
                     return e;
                 }
             }
@@ -128,8 +157,10 @@ public class UsersModel implements IUsersModel {
         }
     }
     public EUser deleteOneUser(String userId) throws Exception{
+        long startTime = System.nanoTime();
         String entity = "users";
         try {
+            // TODO можно просто вызвать delete
             // Достаём из БД данные
             List<EUser> userList = dbservice.selectUsers();
 
@@ -139,6 +170,9 @@ public class UsersModel implements IUsersModel {
             for(EUser e: decryptedUserList){
                 if (userId.equals(String.valueOf(e.id)))
                     if(dbservice.delete(entity, userId)) {
+                        long endTime = System.nanoTime();
+                        double durationSeconds = (endTime - startTime) / 1_000_000_000.0;
+                        System.out.println("TEST TIME " + new Throwable().getStackTrace()[0].getMethodName() + ": " + durationSeconds);
                         return e;
                     }
             }
@@ -153,6 +187,7 @@ public class UsersModel implements IUsersModel {
         }
     }
     public EUser updateOneUser(String userId, EUser newUserData) throws Exception{
+        long startTime = System.nanoTime();
         try {
             // Достаём из БД старые данные
             List<EUser> encryptedUserList = dbservice.selectUsers();
@@ -162,12 +197,16 @@ public class UsersModel implements IUsersModel {
 
             // Шифровка новых данных для инсерта в БД
             EUser newEncryptedUserData = modelLogic.getEncryptedUser(newUserData);
+            System.out.println("TEST UPDATE ENCRYPTEDUSER: " + newEncryptedUserData.userName + " " + newEncryptedUserData.firstName);
 
             for(EUser e: decryptedUserList){
                 if (userId.equals(String.valueOf(e.id))){
                     boolean updated = dbservice.updateUserInfo(newEncryptedUserData);
                     if (!updated)
                         throw new Exception("not updated");
+                    long endTime = System.nanoTime();
+                    double durationSeconds = (endTime - startTime) / 1_000_000_000.0;
+                    System.out.println("TEST TIME " + new Throwable().getStackTrace()[0].getMethodName() + ": " + durationSeconds);
                     return newUserData;
 
                 }
@@ -184,6 +223,7 @@ public class UsersModel implements IUsersModel {
     }
 
     public Map<String, String> resetPassword(String userId, Map<String, String> newPassword) throws Exception{
+        long startTime = System.nanoTime();
         String entity = "users";
         try {
             // Преобразуем мап в сущность
@@ -202,6 +242,9 @@ public class UsersModel implements IUsersModel {
                     EUser encryptedUserData = modelLogic.getEncryptedUser(e);
                     boolean updated = dbservice.updateUserPassword(encryptedUserData);
                     if(updated) {
+                        long endTime = System.nanoTime();
+                        double durationSeconds = (endTime - startTime) / 1_000_000_000.0;
+                        System.out.println("TEST TIME " + new Throwable().getStackTrace()[0].getMethodName() + ": " + durationSeconds);
                         return newPassword;
                     }
                 }

@@ -5,6 +5,8 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class JsonWebToken implements IJsonWebToken {
@@ -17,7 +19,7 @@ public class JsonWebToken implements IJsonWebToken {
 
     public String generateToken(String userId, String tokenType, String role) throws Exception{
         String token = null;
-        long expireTime = (new Date().getTime()) + 3600000; // 1 час
+        long expireTime = (new Date().getTime()) + 604800000; // 1 час
         Date expireDate = new Date(expireTime);
 
         try {
@@ -40,6 +42,7 @@ public class JsonWebToken implements IJsonWebToken {
             throw new Exception();
         }
 
+        System.out.println("TEST date of token generation: " + new SimpleDateFormat("yyyy.MM.dd_HH:mm:ss").format(Calendar.getInstance().getTime()));
         return token;
     }
     public boolean checkToken(String token, String tokenType){

@@ -1,16 +1,19 @@
 package classes.database.entity.user;
 
 import jakarta.persistence.*;
+import jakarta.ws.rs.Produces;
 
 import java.util.UUID;
 
+@Produces("application/json")
 @Entity
 @NamedQueries({
         @NamedQuery(name="users.findAll", query="SELECT eu FROM EUser eu"),
         @NamedQuery(name="users.deleteById", query="DELETE FROM EUser where id=:id"),
         @NamedQuery(name="users.updateById", query="UPDATE EUser SET firstName=:firstName, " +
                 "middleName=:middleName, " +
-                "lastName=:lastName " +
+                "lastName=:lastName, " +
+                "userName=:userName " +
                 "WHERE id = :id"),
         @NamedQuery(name="users.updatePasswordById", query="UPDATE EUser SET password=:password " +
                 "WHERE id = :id")
@@ -69,4 +72,6 @@ public class EUser {
     public String createdAt;
     @Column(name = "\"updatedAt\"")
     public String updatedAt;
+    @Column(name = "\"role\"")
+    public String role;
 }

@@ -6,6 +6,7 @@ import classes.database.entity.patient.EPatientCovidProperties;
 import classes.database.entity.user.EUser;
 
 import java.util.List;
+import java.util.Map;
 
 public interface IDBservice {
     public boolean insert(Object entity);

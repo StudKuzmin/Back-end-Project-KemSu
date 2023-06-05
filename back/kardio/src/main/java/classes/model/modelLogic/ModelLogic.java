@@ -17,6 +17,7 @@ public class ModelLogic implements IModelLogic {
 
     public EUser getEncryptedUser(EUser euser) {
         try {
+            System.out.println("TEST IN getEncryptedUser: " + euser.id + " " + euser.userName + " " + euser.password);
             EUser copiedEncryptedEuser = new EUser();
             euser.clone(copiedEncryptedEuser);
 
@@ -25,6 +26,8 @@ public class ModelLogic implements IModelLogic {
             copiedEncryptedEuser.lastName = crypto.encrypt(euser.lastName);
             copiedEncryptedEuser.userName = crypto.encrypt(euser.userName);
             copiedEncryptedEuser.password = crypto.encrypt(euser.password);
+            copiedEncryptedEuser.role = crypto.encrypt(euser.role);
+            copiedEncryptedEuser.createdAt = crypto.encrypt(euser.createdAt);
 
             return copiedEncryptedEuser;
         }
@@ -47,6 +50,8 @@ public class ModelLogic implements IModelLogic {
             copiedDecryptedEuser.lastName = crypto.decrypt(euser.lastName);
             copiedDecryptedEuser.userName = crypto.decrypt(euser.userName);
             copiedDecryptedEuser.password = crypto.decrypt(euser.password);
+            copiedDecryptedEuser.role = crypto.decrypt(euser.role);
+            copiedDecryptedEuser.createdAt = crypto.decrypt(euser.createdAt);
 
             return copiedDecryptedEuser;
         }
@@ -71,6 +76,8 @@ public class ModelLogic implements IModelLogic {
                 copiedEncryptedUserList.get(i).lastName = crypto.encrypt(userList.get(i).lastName);
                 copiedEncryptedUserList.get(i).userName = crypto.encrypt(userList.get(i).userName);
                 copiedEncryptedUserList.get(i).password = crypto.encrypt(userList.get(i).password);
+                copiedEncryptedUserList.get(i).createdAt = crypto.encrypt(userList.get(i).createdAt);
+                copiedEncryptedUserList.get(i).role = crypto.encrypt(userList.get(i).role);
             }
             return copiedEncryptedUserList;
         }
@@ -95,6 +102,8 @@ public class ModelLogic implements IModelLogic {
                 copiedEncryptedUserList.get(i).lastName = crypto.decrypt(userList.get(i).lastName);
                 copiedEncryptedUserList.get(i).userName = crypto.decrypt(userList.get(i).userName);
                 copiedEncryptedUserList.get(i).password = crypto.decrypt(userList.get(i).password);
+                copiedEncryptedUserList.get(i).createdAt = crypto.decrypt(userList.get(i).createdAt);
+                copiedEncryptedUserList.get(i).role = crypto.decrypt(userList.get(i).role);
             }
             return copiedEncryptedUserList;
         }
@@ -114,6 +123,7 @@ public class ModelLogic implements IModelLogic {
             EPatientCovid copiedEncryptedPatientCovid = new EPatientCovid();
 
             copiedEncryptedPatientCovid.id = ePatientCovid.id;
+            copiedEncryptedPatientCovid.userid = ePatientCovid.userid;
             copiedEncryptedPatientCovid.description = crypto.encrypt(ePatientCovid.description);
             copiedEncryptedPatientCovid.createdAt = crypto.encrypt(ePatientCovid.createdAt);
             copiedEncryptedPatientCovid.updatedAt = crypto.encrypt(ePatientCovid.updatedAt);
@@ -157,6 +167,7 @@ public class ModelLogic implements IModelLogic {
             EPatientCabs copiedEncryptedPatientCabs = new EPatientCabs();
 
             copiedEncryptedPatientCabs.id = ePatientCabs.id;
+            copiedEncryptedPatientCabs.userid = ePatientCabs.userid;
             copiedEncryptedPatientCabs.description = crypto.encrypt(ePatientCabs.description);
             copiedEncryptedPatientCabs.createdAt = crypto.encrypt(ePatientCabs.createdAt);
             copiedEncryptedPatientCabs.updatedAt = crypto.encrypt(ePatientCabs.updatedAt);
@@ -171,6 +182,7 @@ public class ModelLogic implements IModelLogic {
             copiedEncryptedPatientCabs.properties.diabetes = crypto.encrypt(ePatientCabs.properties.diabetes);
             copiedEncryptedPatientCabs.properties.obesity = crypto.encrypt(ePatientCabs.properties.obesity);
             copiedEncryptedPatientCabs.properties.smoking = crypto.encrypt(ePatientCabs.properties.smoking);
+            copiedEncryptedPatientCabs.properties.angiotensinInhibitors = crypto.encrypt(ePatientCabs.properties.angiotensinInhibitors);
             copiedEncryptedPatientCabs.properties.heredity = crypto.encrypt(ePatientCabs.properties.heredity);
             copiedEncryptedPatientCabs.properties.dyslipidemia = crypto.encrypt(ePatientCabs.properties.dyslipidemia);
             copiedEncryptedPatientCabs.properties.asthma = crypto.encrypt(ePatientCabs.properties.asthma);
@@ -284,6 +296,7 @@ public class ModelLogic implements IModelLogic {
                 copiedDecryptedPatientCovidList.add(new EPatientCovid());
 
                 copiedDecryptedPatientCovidList.get(i).id = patientCovidList.get(i).id;
+                copiedDecryptedPatientCovidList.get(i).userid = patientCovidList.get(i).userid;
                 copiedDecryptedPatientCovidList.get(i).description = crypto.decrypt(patientCovidList.get(i).description);
                 copiedDecryptedPatientCovidList.get(i).createdAt = crypto.decrypt(patientCovidList.get(i).createdAt);
                 copiedDecryptedPatientCovidList.get(i).updatedAt = crypto.decrypt(patientCovidList.get(i).updatedAt);
@@ -330,6 +343,7 @@ public class ModelLogic implements IModelLogic {
                 copiedDecryptedPatientCabsList.add(new EPatientCabs());
 
                 copiedDecryptedPatientCabsList.get(i).id = patientCabsList.get(i).id;
+                copiedDecryptedPatientCabsList.get(i).userid = patientCabsList.get(i).userid;
                 copiedDecryptedPatientCabsList.get(i).description = crypto.decrypt(patientCabsList.get(i).description);
                 copiedDecryptedPatientCabsList.get(i).createdAt = crypto.decrypt(patientCabsList.get(i).createdAt);
                 copiedDecryptedPatientCabsList.get(i).updatedAt = crypto.decrypt(patientCabsList.get(i).updatedAt);
@@ -354,6 +368,7 @@ public class ModelLogic implements IModelLogic {
                 copiedDecryptedPatientCabsList.get(i).properties.thyroidDisorders = crypto.decrypt(patientCabsList.get(i).properties.thyroidDisorders);
                 copiedDecryptedPatientCabsList.get(i).properties.varicoseVein = crypto.decrypt(patientCabsList.get(i).properties.varicoseVein);
                 copiedDecryptedPatientCabsList.get(i).properties.insult = crypto.decrypt(patientCabsList.get(i).properties.insult);
+                copiedDecryptedPatientCabsList.get(i).properties.angiotensinInhibitors = crypto.decrypt(patientCabsList.get(i).properties.angiotensinInhibitors);
                 copiedDecryptedPatientCabsList.get(i).properties.lowerLimbIschemia = crypto.decrypt(patientCabsList.get(i).properties.lowerLimbIschemia);
                 copiedDecryptedPatientCabsList.get(i).properties.anginaFuncClass = crypto.decrypt(patientCabsList.get(i).properties.anginaFuncClass);
                 copiedDecryptedPatientCabsList.get(i).properties.chronicHeartFailureFuncClass = crypto.decrypt(patientCabsList.get(i).properties.chronicHeartFailureFuncClass);

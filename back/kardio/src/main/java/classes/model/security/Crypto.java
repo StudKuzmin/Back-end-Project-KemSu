@@ -22,6 +22,8 @@ public class Crypto implements ICrypto{
             SecretKey originalKey = new SecretKeySpec(Arrays.copyOf(decodedKey, 16), "AES");
             cipher.init(Cipher.ENCRYPT_MODE, originalKey);
             byte[] cipherText = cipher.doFinal(data.getBytes("UTF-8"));
+
+            System.out.println("TEST ENCRYPT " + new Throwable().getStackTrace()[0].getMethodName() + ": " + data + " " + Base64.getEncoder().encodeToString(cipherText));
             return Base64.getEncoder().encodeToString(cipherText);
         } catch (Exception ex) {
             System.out.printf("ERROR in %s.%s: %s%n",
@@ -45,6 +47,8 @@ public class Crypto implements ICrypto{
             SecretKey originalKey = new SecretKeySpec(Arrays.copyOf(decodedKey, 16), "AES");
             cipher.init(Cipher.DECRYPT_MODE, originalKey);
             byte[] cipherText = cipher.doFinal(Base64.getDecoder().decode(encryptedString));
+
+            System.out.println("TEST DECRYPT " + new Throwable().getStackTrace()[0].getMethodName() + ": " + encryptedString + " " + new String(cipherText));
             return new String(cipherText);
         } catch (Exception ex) {
             System.out.printf("ERROR in %s.%s: %s%n",

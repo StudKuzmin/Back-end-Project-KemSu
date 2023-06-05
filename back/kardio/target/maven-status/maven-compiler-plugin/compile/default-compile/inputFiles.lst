@@ -3,6 +3,7 @@ D:\IDEA_PROJECTS\kardio\src\main\java\classes\database\entity\mopatientcovid\EPa
 D:\IDEA_PROJECTS\kardio\src\main\java\classes\database\entity\postdatasetsiddata\EPostDatasetDataResult.java
 D:\IDEA_PROJECTS\kardio\src\main\java\classes\database\entity\postdatasets\EPostDatasetResult.java
 D:\IDEA_PROJECTS\kardio\src\main\java\classes\database\entity\postdatasetsiddata\EPostDatasetDataPredictionBody.java
+D:\IDEA_PROJECTS\kardio\src\main\java\classes\controller\requests\MyJson.java
 D:\IDEA_PROJECTS\kardio\src\main\java\classes\database\entity\scheme\EPatientSchemeSteps.java
 D:\IDEA_PROJECTS\kardio\src\main\java\classes\database\entity\getdatasets\EGetDatasetContentsResult.java
 D:\IDEA_PROJECTS\kardio\src\main\java\classes\controller\controllerLogic\ControllerLogic.java

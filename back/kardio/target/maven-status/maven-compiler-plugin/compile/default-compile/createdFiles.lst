@@ -3,6 +3,9 @@ classes\database\entity\patient\EPatientCabs.class
 classes\database\entity\mopatientcovid\EPatientCovidBodyMO.class
 classes\controller\requests\PatientsRequests.class
 classes\database\entity\getdatasets\EGetDatasetContentsResult.class
+classes\database\entity\patient\EPatientCabsPropertiesPARSE.class
+classes\controller\requests\MyJson.class
+classes\database\entity\patient\EPatientCovidPARSE.class
 classes\controller\controllerLogic\IControllerLogic.class
 classes\database\entity\getdatasets\EGetDatasetResult.class
 classes\database\dbservice\IDBservice.class
@@ -43,6 +46,7 @@ classes\model\security\Crypto.class
 classes\database\entity\mopatientcovid\EPatientCabsBodyMO.class
 classes\database\entity\postdatasets\EPostDatasetBody.class
 classes\model\modelRequests\UsersModel.class
+classes\database\entity\patient\EPatientCovidPropertiesPARSE.class
 classes\database\entity\postdatasetsiddata\EPostDatasetDataBody.class
 classes\database\entity\postdatasetsiddata\EPostDatasetDataPredictionResult.class
 classes\database\entity\mopatientcovid\EPatientCovidMO.class
@@ -56,6 +60,7 @@ classes\controller\controller\interfaces\IUsersController.class
 classes\database\entity\patient\EPatientCovidProperties.class
 classes\database\entity\user\EUserContentsPage.class
 classes\model\security\ICrypto.class
+classes\database\entity\patient\EPatientCabsPARSE.class
 classes\controller\requests\SchemasRequests.class
 classes\model\modelRequests\PatientsModel.class
 classes\database\entity\scheme\EPatientSchemeFields.class

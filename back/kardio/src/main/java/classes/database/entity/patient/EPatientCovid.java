@@ -29,6 +29,8 @@ public class EPatientCovid {
     @Id
     @Column(name = "\"id\"")
     public String id;
+    @Column(name = "\"userid\"")
+    public String userid;
     @Column(name = "\"description\"")
     public String description;
     @Column(name = "\"type\"")

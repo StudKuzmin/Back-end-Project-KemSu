@@ -22,9 +22,9 @@ public class UsersController implements IUsersController {
     public EToken postUsersLogin(String userDataJSON) throws Exception{
         try {
             EUser euser = controllerLogic.fromUserJson(userDataJSON);
-            String userId = usersModel.postUsersLogin(euser);
-            if (userId != null) {
-                return controllerLogic.getUserToken(userId,"user");
+            EUser newEuser = usersModel.postUsersLogin(euser);
+            if (newEuser != null) {
+                return controllerLogic.getUserToken(newEuser.id, newEuser.role);
             }
             else throw new Exception("BAD USER DATA");
         }
@@ -65,6 +65,7 @@ public class UsersController implements IUsersController {
             boolean userCreated = false;
             try {
                 euser = controllerLogic.fromUserJson(userDataJSON);
+
                 userCreated = usersModel.createUser(euser);
                 if(userCreated)
                     return euser;
@@ -123,6 +124,7 @@ public class UsersController implements IUsersController {
         if(accessTokenIsOk){
             try {
                 EUser newDataUser = controllerLogic.fromUserJson(userDataJSON);
+                System.out.println("TEST UPDATE EUser: " + newDataUser.userName + " " + newDataUser.firstName);
                 newDataUser.id = userId;
                 return usersModel.updateOneUser(userId, newDataUser);
             }

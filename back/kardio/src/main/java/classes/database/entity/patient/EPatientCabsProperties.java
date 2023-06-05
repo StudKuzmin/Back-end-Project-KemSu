@@ -121,6 +121,8 @@ public class EPatientCabsProperties {
     public String anticoagulants;
     @Column(name = "\"betaAB\"")
     public String betaAB;
+    @Column(name = "\"angiotensinInhibitors\"")
+    public String angiotensinInhibitors;
     @Column(name = "\"angiotensinAntagonists\"")
     public String angiotensinAntagonists;
     @Column(name = "\"statins\"")

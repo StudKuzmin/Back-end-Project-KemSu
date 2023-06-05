@@ -105,6 +105,26 @@ public class DBservice implements IDBservice{
             throw new Exception("ERROR while select");
         }
     }
+    public List<Map<String, String>> selectPatientsCovidMAP() throws Exception{
+        try {
+            String query = "patientsCovid.findAll";
+
+            userTransaction.begin();
+            entityManager.joinTransaction();
+
+            List<Map<String, String>> entityList = entityManager.createNamedQuery(query).getResultList();
+            userTransaction.commit();
+
+            return entityList;
+        }
+        catch (Exception ex) {
+            System.out.printf("ERROR in %s.%s: %s%n",
+                    this.getClass(),
+                    new Throwable().getStackTrace()[0].getMethodName(),
+                    ex.getMessage());
+            throw new Exception("ERROR while select");
+        }
+    }
 
     public List<EPatientCabs> selectPatientsCabs() throws Exception{
         try {
@@ -159,6 +179,7 @@ public class DBservice implements IDBservice{
                     .setParameter("firstName", newUserData.firstName)
                     .setParameter("middleName", newUserData.middleName)
                     .setParameter("lastName", newUserData.lastName)
+                    .setParameter("userName", newUserData.userName)
                     .setParameter("id", newUserData.id)
                     .executeUpdate();
 

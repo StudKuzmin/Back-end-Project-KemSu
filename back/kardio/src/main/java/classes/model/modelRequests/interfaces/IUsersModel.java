@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface IUsersModel {
-    public String postUsersLogin(EUser euser);
+    public EUser postUsersLogin(EUser euser);
     public List<EUserPage> getUserList() throws Exception;
     public boolean createUser(EUser euser) throws Exception;
     public EUser getOneUser(String userId) throws Exception;
